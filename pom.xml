@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ua.rd</groupId>
+    <groupId>ua.rd.webbanking</groupId>
     <artifactId>web-banking</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -47,10 +47,25 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.3.14.v20161028</version>
+            </plugin>
         </plugins>
+
     </build>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.5.3</version>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>c3p0</groupId>
             <artifactId>c3p0</artifactId>
