@@ -10,8 +10,16 @@ import ua.rd.webbanking.model.services.UnblockAccount;
 import javax.servlet.http.HttpServletRequest;
 
 public class UnblockAccConfirm extends Command {
-    private CheckClientData checkClientData = new CheckClientData();
     private UnblockAccount unblockAccount = new UnblockAccount();
+
+    public UnblockAccConfirm() {
+//        default constructor
+    }
+
+    public UnblockAccConfirm(CheckClientData checkClientData, UnblockAccount unblockAccount) {
+        this.checkClientData = checkClientData;
+        this.unblockAccount = unblockAccount;
+    }
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {

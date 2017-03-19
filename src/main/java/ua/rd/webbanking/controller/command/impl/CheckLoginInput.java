@@ -21,6 +21,15 @@ public class CheckLoginInput extends Command {
     private static final String defaultPassStr = "/index.jsp";
     private static final String errorAttributesStr = "errorMessage";
 
+    public CheckLoginInput() {
+//        default constructor
+    }
+
+    public CheckLoginInput(CheckLoginAndPass checkLoginAndPass, OpenSimplePage openSimplePage) {
+        this.checkLoginAndPass = checkLoginAndPass;
+        this.openSimplePage = openSimplePage;
+    }
+
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {
         if (validationOnCorrectInput(request)) {

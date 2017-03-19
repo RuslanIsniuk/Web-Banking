@@ -4,11 +4,21 @@ import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
 import ua.rd.webbanking.model.services.BlockAccount;
+import ua.rd.webbanking.model.services.CheckClientData;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class BlockAccConfirm extends Command {
     private BlockAccount blockAccount = new BlockAccount();
+
+    public BlockAccConfirm() {
+//        default constructor
+    }
+
+    public BlockAccConfirm(CheckClientData checkClientData, BlockAccount blockAccount) {
+        this.checkClientData = checkClientData;
+        this.blockAccount = blockAccount;
+    }
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {

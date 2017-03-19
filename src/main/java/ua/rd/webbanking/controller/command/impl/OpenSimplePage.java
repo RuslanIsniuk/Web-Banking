@@ -10,6 +10,7 @@ import ua.rd.webbanking.model.services.GetBlockedAccountsData;
 import ua.rd.webbanking.model.services.GetClientsData;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class OpenSimplePage extends Command {
@@ -94,6 +95,10 @@ public class OpenSimplePage extends Command {
 
             case "openTVPaymentPage":
                 pathToJSP = openTVPaymentPage(request);
+                break;
+
+            case "logOut":
+                pathToJSP = logOut(request);
                 break;
 
             default:
@@ -295,5 +300,14 @@ public class OpenSimplePage extends Command {
             throw new AuthorizationException();
         }
         return "/adminOperationImpl/CreateNewClientPage.jsp";
+    }
+
+    private String logOut(HttpServletRequest request) throws AuthorizationException{
+        request.getSession(false).invalidate();
+        HttpSession session = request.getSession(false);
+        if(session!=null){
+            throw new AuthorizationException("Error! Session not closed!");
+        }
+        return "/index.jsp";
     }
 }

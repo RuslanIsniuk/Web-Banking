@@ -9,11 +9,19 @@ import ua.rd.webbanking.model.services.DeleteAccount;
 import javax.servlet.http.HttpServletRequest;
 
 public class DeleteAccConfirm extends Command {
-    private CheckClientData checkClientData = new CheckClientData();
     private DeleteAccount deleteAccount = new DeleteAccount();
 
+    public DeleteAccConfirm() {
+//        default constructor
+    }
+
+    public DeleteAccConfirm(CheckClientData checkClientData, DeleteAccount deleteAccount) {
+        this.checkClientData = checkClientData;
+        this.deleteAccount = deleteAccount;
+    }
+
     @Override
-    public String execute(HttpServletRequest request) throws AuthorizationException{
+    public String execute(HttpServletRequest request) throws AuthorizationException {
         String pathToJSP = "/adminOperationImpl/OperationConfirm.jsp";
         Client clientAdmin = getClientFromSession(request);
 
@@ -24,7 +32,7 @@ public class DeleteAccConfirm extends Command {
         int clientID = Integer.parseInt(request.getParameter("clientID"));
         deleteAccount.deleteConfirm(clientID);
 
-        request.setAttribute("statusMessage","Client's data removed successfully!");
+        request.setAttribute("statusMessage", "Client's data removed successfully!");
         return pathToJSP;
     }
 }

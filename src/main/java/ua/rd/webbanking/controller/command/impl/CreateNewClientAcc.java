@@ -23,7 +23,6 @@ import java.util.regex.Pattern;
 public class CreateNewClientAcc extends Command {
     private static final Logger logger = Logger.getLogger(CreateNewClientAcc.class);
 
-    private CheckClientData checkClientData = new CheckClientData();
     private CreateNewClientPerArea createNewClientPerArea = new CreateNewClientPerArea();
 
     private static final String LOGIN_OR_PASS_FIELD = "\\w{3,25}";
@@ -35,9 +34,18 @@ public class CreateNewClientAcc extends Command {
     private static final String CARD_DATA_FIELD = "[2][0][1-2][0-9][-](([0]?[1-9])||([1][0-2]))[-](([0-2]?[1-9])||([3][01])||([12][0]))";
     private static final String DEFAULT_PASS_TO_JSP = "/adminOperationImpl/CreateNewClientPage.jsp";
 
+    public CreateNewClientAcc() {
+//        default constructor
+    }
+
+    public CreateNewClientAcc(CheckClientData checkClientData, CreateNewClientPerArea createNewClientPerArea) {
+        this.checkClientData = checkClientData;
+        this.createNewClientPerArea = createNewClientPerArea;
+    }
+
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {
-        String pathToJSP = "";
+        String pathToJSP;
         Client clientAdmin = getClientFromSession(request);
 
         if (!checkClientData.checkAdminFlag(clientAdmin.getClientID())) {
@@ -51,7 +59,7 @@ public class CreateNewClientAcc extends Command {
             createNewClientPerArea.createNewAccount(account);
             CreditCard creditCard = validationCardDataInput(request, account);
             createNewClientPerArea.createNewCreditCard(creditCard);
-            request.setAttribute("statusMessage","New client created successfully!");
+            request.setAttribute("statusMessage", "New client created successfully!");
             pathToJSP = "/adminOperationImpl/OperationConfirm.jsp";
 
         } catch (InvalidClientDataInputException icde) {
@@ -66,7 +74,7 @@ public class CreateNewClientAcc extends Command {
             logger.error(icde);
             request.setAttribute("errorMessageCard", icde.getMessage());
             pathToJSP = DEFAULT_PASS_TO_JSP;
-        }catch (ServiceException se){
+        } catch (ServiceException se) {
             logger.error(se);
             request.setAttribute("errorMessage", se.getMessage());
             pathToJSP = DEFAULT_PASS_TO_JSP;

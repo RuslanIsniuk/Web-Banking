@@ -9,11 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class Command {
     private static final Logger logger = Logger.getLogger(Command.class);
-    private CheckClientData checkClientData = new CheckClientData();
+    protected CheckClientData checkClientData = new CheckClientData();
 
     public abstract String execute(HttpServletRequest request) throws AuthorizationException;
 
-    public void checkCreditCardOwner(HttpServletRequest request) throws AuthorizationException {
+    protected void checkCreditCardOwner(HttpServletRequest request) throws AuthorizationException {
         if (!request.isRequestedSessionIdValid()) {
             throw new AuthorizationException();
         }
@@ -26,7 +26,7 @@ public abstract class Command {
         }
     }
 
-    public Client getClientFromSession(HttpServletRequest request) throws AuthorizationException {
+    protected Client getClientFromSession(HttpServletRequest request) throws AuthorizationException {
         try {
             return (Client) request.getSession().getAttribute("clientData");
         } catch (NullPointerException npe) {
@@ -35,7 +35,7 @@ public abstract class Command {
         }
     }
 
-    public long getCreditCardIDFromRequest(HttpServletRequest request) {
+    protected long getCreditCardIDFromRequest(HttpServletRequest request) {
         return Long.parseLong(request.getParameter("cardID"));
     }
 

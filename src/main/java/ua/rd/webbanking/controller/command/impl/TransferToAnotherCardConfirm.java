@@ -5,6 +5,7 @@ import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
 import ua.rd.webbanking.entities.Payment;
 import ua.rd.webbanking.model.exceptions.ServiceException;
+import ua.rd.webbanking.model.services.CheckClientData;
 import ua.rd.webbanking.model.services.PaymentConfirm;
 import org.apache.log4j.Logger;
 
@@ -19,6 +20,15 @@ public class TransferToAnotherCardConfirm extends Command {
     private PaymentConfirm paymentConfirm = new PaymentConfirm();
     private static final String NUM_FIELD = "([1234]?\\d{1,4}(\\u002E\\d{1,2})?)||([5][0]{4}(\\u002E[0]{1,2})?)";
     private static final String CARD_FIELD = "\\d{16}";
+
+    public TransferToAnotherCardConfirm() {
+//        default constructor
+    }
+
+    public TransferToAnotherCardConfirm(CheckClientData checkClientData, PaymentConfirm paymentConfirm) {
+        this.checkClientData = checkClientData;
+        this.paymentConfirm = paymentConfirm;
+    }
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {

@@ -6,6 +6,7 @@ import ua.rd.webbanking.entities.CreditCard;
 import ua.rd.webbanking.entities.Payment;
 import ua.rd.webbanking.entities.PaymentType;
 import ua.rd.webbanking.model.exceptions.ServiceException;
+import ua.rd.webbanking.model.services.CheckClientData;
 import ua.rd.webbanking.model.services.PaymentConfirm;
 import org.apache.log4j.Logger;
 
@@ -23,9 +24,17 @@ public class ClientsPaymentConfirm extends Command {
     private static final String INTERNET_NUM_FIELD = "\\d{10}";
     private static final String TV_NUM_FIELD = "\\d{10}";
 
-
     private PaymentConfirm paymentConfirm = new PaymentConfirm();
     private PaymentType paymentType;
+
+    public ClientsPaymentConfirm() {
+//        default constructor
+    }
+
+    public ClientsPaymentConfirm(CheckClientData checkClientData, PaymentConfirm paymentConfirm) {
+        this.checkClientData = checkClientData;
+        this.paymentConfirm = paymentConfirm;
+    }
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {
@@ -92,7 +101,7 @@ public class ClientsPaymentConfirm extends Command {
                 break;
 
             default:
-                // log here
+                logger.error("Error in method getDestinationIDFromTheRequest!");
                 break;
         }
         return destinationID;
@@ -122,7 +131,7 @@ public class ClientsPaymentConfirm extends Command {
 
             default:
                 compileStr = "";
-                // log here
+                logger.error("Error in method validationOnCorrectInput!");
                 break;
         }
 
