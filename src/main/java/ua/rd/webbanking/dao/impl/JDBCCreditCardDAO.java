@@ -77,7 +77,12 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
         } catch (SQLException e) {
             logger.error(e);
         }
-        return creditCardArrayList;
+
+        if(creditCardArrayList.size() == 0){
+            return null;
+        }else{
+            return creditCardArrayList;
+        }
     }
 
     @Override
@@ -102,7 +107,7 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
 
     @Override
     public CreditCard read(long cardID) {
-        CreditCard creditCard = new CreditCard();
+        CreditCard creditCard = null;
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementRead)) {
@@ -123,7 +128,7 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
     }
 
     @Override
-    public long create(CreditCard creditCard) {
+    public long insert(CreditCard creditCard) {
         long cardID = creditCard.getCardID();
 
         try (Connection connection = connectionUtil.getConnection();

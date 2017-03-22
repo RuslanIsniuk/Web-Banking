@@ -11,7 +11,7 @@ public interface AccountDAO {
     Account read(int accountID);
     List<Account> readUsingClientID(int clientID);
     List<Account> readAll();
-    void create(Account account);
+    void insert(Account account);
     void update(Account account);
     void delete(int accountID);
 }

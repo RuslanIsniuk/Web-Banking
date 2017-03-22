@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-/**
- * Created by Руслан on 22.12.2016.
- */
 public class JDBCAccountDAO implements AccountDAO {
 
     private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(JDBCAccountDAO.class);
@@ -62,7 +59,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
     @Override
     public Account read(int accountID) {
-        Account account = new Account();
+        Account account = null;
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementRead)) {
@@ -93,6 +90,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
+
             while (resultSet.next()) {
                 accountArrayList.add(parseResultSet(resultSet));
             }
@@ -101,7 +99,12 @@ public class JDBCAccountDAO implements AccountDAO {
         } catch (SQLException e) {
             logger.error(e);
         }
-        return accountArrayList;
+
+        if(accountArrayList.size() == 0){
+            return null;
+        }else{
+            return accountArrayList;
+        }
     }
 
     @Override
@@ -125,7 +128,7 @@ public class JDBCAccountDAO implements AccountDAO {
     }
 
     @Override
-    public void create(Account account) {
+    public void insert(Account account) {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementCreate)) {
 

@@ -1,10 +1,12 @@
 package ua.rd.webbanking.dao.impl;
 
+import ua.rd.webbanking.DBdata.ConnectionPoolH2;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.DBdata.ConnectionPool;
 import ua.rd.webbanking.DBdata.ConnectionUtil;
 import ua.rd.webbanking.entities.Client;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -13,10 +15,6 @@ import java.util.Properties;
 
 import java.sql.*;
 
-
-/**
- * Created by Руслан on 21.12.2016.
- */
 public class JDBCClientDAO implements ClientDAO {
 
     private static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(JDBCClientDAO.class);
@@ -28,10 +26,31 @@ public class JDBCClientDAO implements ClientDAO {
     private String SQLStatementReadWhenLogGiven;
     private String SQLStatementReadAll;
 
-    private ConnectionUtil connectionUtil = ConnectionPool.getInstance();
+    private ConnectionUtil connectionUtil;
 
     public JDBCClientDAO() {
         Properties properties = new Properties();
+        connectionUtil = ConnectionPool.getInstance();
+
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("JDBCClientDAOConfig.properties")) {
+
+            properties.load(inputStream);
+
+            SQLStatementRead = properties.getProperty("StatementRead");
+            SQLStatementUpdate = properties.getProperty("StatementUpdate");
+            SQLStatementDelete = properties.getProperty("StatementDelete");
+            SQLStatementCreate = properties.getProperty("StatementCreate");
+            SQLStatementReadAll = properties.getProperty("StatementReadAll");
+            SQLStatementReadWhenLogGiven = properties.getProperty("StatementReadWhenLogGiven");
+
+        } catch (IOException ex) {
+            logger.error(ex);
+        }
+    }
+
+    public JDBCClientDAO(DataSource dataSource) {
+        Properties properties = new Properties();
+        connectionUtil = new ConnectionPoolH2(dataSource);
 
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("JDBCClientDAOConfig.properties")) {
 
@@ -63,7 +82,7 @@ public class JDBCClientDAO implements ClientDAO {
 
     @Override
     public Client read(int clientID) {
-        Client client = new Client();
+        Client client = null;
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementRead)) {
@@ -84,7 +103,7 @@ public class JDBCClientDAO implements ClientDAO {
     }
 
     @Override
-    public int create(Client client) {
+    public int insert(Client client) {
         int clientID = 0;
 
         try (Connection connection = connectionUtil.getConnection();
@@ -145,7 +164,7 @@ public class JDBCClientDAO implements ClientDAO {
 
     @Override
     public Client read(String clientLogin, String clientPass) {
-        Client client = new Client();
+        Client client = null;
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementReadWhenLogGiven)) {

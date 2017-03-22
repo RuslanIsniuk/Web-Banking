@@ -57,7 +57,7 @@ public class JDBCPaymentDAO implements PaymentDAO {
 
     @Override
     public Payment read(int paymentsID) {
-        Payment payment = new Payment();
+        Payment payment = null;
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementRead)) {
@@ -78,7 +78,7 @@ public class JDBCPaymentDAO implements PaymentDAO {
 
     @Override
     public List<Payment> readUsingCardID(long cardID) {
-        ArrayList<Payment> paymentArrayList = new ArrayList<Payment>();
+        ArrayList<Payment> paymentArrayList = new ArrayList<>();
 
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementReadAll)) {
@@ -94,11 +94,16 @@ public class JDBCPaymentDAO implements PaymentDAO {
         } catch (SQLException e) {
             logger.error(e);
         }
-        return paymentArrayList;
+
+        if(paymentArrayList.size() == 0){
+            return null;
+        }else{
+            return paymentArrayList;
+        }
     }
 
     @Override
-    public void create(Payment payment) {
+    public void insert(Payment payment) {
         int paymentsID = 0;
 
         try (Connection connection = connectionUtil.getConnection();
