@@ -5,7 +5,6 @@ import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Account;
 import ua.rd.webbanking.entities.Client;
 import ua.rd.webbanking.entities.CreditCard;
-import ua.rd.webbanking.model.services.CheckClientData;
 import ua.rd.webbanking.model.services.GetBlockedAccountsData;
 import ua.rd.webbanking.model.services.GetClientsData;
 
@@ -16,7 +15,6 @@ import java.util.List;
 public class OpenSimplePage extends Command {
     private String pathToJSP;
     private GetClientsData getClientsData = new GetClientsData();
-    private CheckClientData checkClientData = new CheckClientData();
     private GetBlockedAccountsData getBlockedAccountsData = new GetBlockedAccountsData();
 
     @Override

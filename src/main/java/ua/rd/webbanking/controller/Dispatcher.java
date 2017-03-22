@@ -1,12 +1,15 @@
 package ua.rd.webbanking.controller;
 
+import org.apache.log4j.Logger;
 import ua.rd.webbanking.controller.command.impl.*;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
+import ua.rd.webbanking.entities.CreditCard;
 
 import javax.servlet.http.HttpServletRequest;
 
 public class Dispatcher {
     private static final Dispatcher Instance = new Dispatcher();
+    private static final Logger logger = Logger.getLogger(Dispatcher.class);
 
     private CheckLoginInput checkLoginInput = new CheckLoginInput();
     private BlockAccConfirm blockAccConfirm = new BlockAccConfirm();
@@ -19,70 +22,80 @@ public class Dispatcher {
     private Dispatcher(){}
 
     public String logicIdentificator(HttpServletRequest request) {
-        String pathToJSP = new String();
+        String pathToJSP ="";
         String attributeStr = elementaryIdentification(request);
 
-        try{
-            switch (attributeStr) {
-                case "CheckLoginData":
-                    pathToJSP = checkLoginInput.execute(request);
-                    break;
+        if(attributeStr == null){
+            long cardID = Long.parseLong(request.getParameter("cardID"));
+            String cardIDStr = CreditCard.cardNumberToString(cardID);
+            request.setAttribute("cardID",cardID);
+            request.setAttribute("cardIDStr",cardIDStr);
+            request.setAttribute("errorMessage", "Error! Nothing chosen!");
+            pathToJSP = request.getParameter("pageLocation");
+        }else{
+            try{
+                switch (attributeStr) {
+                    case "CheckLoginData":
+                        pathToJSP = checkLoginInput.execute(request);
+                        break;
 
-                case "returnToPerArea":
-                case "returnToPerAdminAreaPage":
-                case "openCardOperationMenu":
-                case "openBlockAccPage":
-                case "openCardTransactionPage":
-                case "openCommPaymentPage":
-                case "openMobilePaymentPage":
-                case "openInternetPaymentPage":
-                case "openTVPaymentPage":
-                case "openTranToAnoCardPage":
-                case "openAllClientsAccPage":
-                case "openBlockedAccountsPage":
-                case "openFormForCreatingNewAccPage":
-                case "openUnblockAccPage":
-                case "openDeleteAccPage":
-                case "openClientDetailsPage":
-                    pathToJSP = openSimplePage.execute(request);
-                    break;
+                    case "returnToPerArea":
+                    case "returnToPerAdminAreaPage":
+                    case "openCardOperationMenu":
+                    case "openBlockAccPage":
+                    case "openCardTransactionPage":
+                    case "openCommPaymentPage":
+                    case "openMobilePaymentPage":
+                    case "openInternetPaymentPage":
+                    case "openTVPaymentPage":
+                    case "openTranToAnoCardPage":
+                    case "openAllClientsAccPage":
+                    case "openBlockedAccountsPage":
+                    case "openFormForCreatingNewAccPage":
+                    case "openUnblockAccPage":
+                    case "openDeleteAccPage":
+                    case "openClientDetailsPage":
+                    case "logOut":
+                        pathToJSP = openSimplePage.execute(request);
+                        break;
 
-                case "confirmBlockAccount":
-                    pathToJSP = blockAccConfirm.execute(request);
-                    break;
+                    case "confirmBlockAccount":
+                        pathToJSP = blockAccConfirm.execute(request);
+                        break;
 
-                case "communalPaymentConfirm":
-                case "mobilePaymentConfirm":
-                case "internetPaymentConfirm":
-                case "tvPaymentConfirm":
-                    pathToJSP = clientsPaymentConfirm.execute(request);
-                    break;
+                    case "communalPaymentConfirm":
+                    case "mobilePaymentConfirm":
+                    case "internetPaymentConfirm":
+                    case "tvPaymentConfirm":
+                        pathToJSP = clientsPaymentConfirm.execute(request);
+                        break;
 
-                case "transfToAnotherCardConfirm":
-                    pathToJSP = transferToAnotherCardConfirm.execute(request);
-                    break;
+                    case "transfToAnotherCardConfirm":
+                        pathToJSP = transferToAnotherCardConfirm.execute(request);
+                        break;
 
-                case "createNewClientConfirm":
-                    pathToJSP = createNewClientAcc.execute(request);
-                    break;
+                    case "createNewClientConfirm":
+                        pathToJSP = createNewClientAcc.execute(request);
+                        break;
 
-                case "unblockClientAccount":
-                    pathToJSP = unblockAccConfirm.execute(request);
-                    break;
+                    case "unblockClientAccount":
+                        pathToJSP = unblockAccConfirm.execute(request);
+                        break;
 
-                case "deleteClientAccount":
-                    pathToJSP = deleteAccConfirm.execute(request);
-                    break;
+                    case "deleteClientAccount":
+                        pathToJSP = deleteAccConfirm.execute(request);
+                        break;
 
-                default:
-                    //log here
-                    break;
+                    default:
+                        logger.error("Error in dispatcher class!");
+                        break;
+                }
+            }catch (AuthorizationException se){
+                logger.error(se);
+                request.setAttribute("errorMessage", se.getMessage());
+                pathToJSP = "/index.jsp";
             }
-        }catch (AuthorizationException se){
-            request.setAttribute("errorMessage", se.getMessage());
-            pathToJSP = "/index.jsp";
         }
-
         return pathToJSP;
     }
 
