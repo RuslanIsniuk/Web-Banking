@@ -33,7 +33,7 @@ public class DeleteAccConfirmTest {
     DeleteAccount deleteAccount;
 
     @Before
-    public void setUp() {
+    public void setUp() throws AuthorizationException {
         deleteAccConfirm = new DeleteAccConfirm(checkClientData, deleteAccount);
         when(client.getClientID()).thenReturn(1);
         when(request.getSession().getAttribute("clientData")).thenReturn(client);

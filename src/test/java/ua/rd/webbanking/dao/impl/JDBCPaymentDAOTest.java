@@ -34,7 +34,7 @@ public class JDBCPaymentDAOTest {
         client.setClientLogin("TestLog");
         client.setClientPass("TestPass");
         client.setClientFullName("TestName");
-        clientID = clientDAO.create(client);
+        clientID = clientDAO.insert(client);
         client.setClientID(clientID);
 
         BigDecimal balance = new BigDecimal("0.00");
@@ -45,14 +45,14 @@ public class JDBCPaymentDAOTest {
         account.setAccountBalance(balance);
         accountID = account.getAccountID();
         account.setAccountID(accountID);
-        accountDAO.create(account);
+        accountDAO.insert(account);
 
         creditCard.setCardAccount(account);
         creditCard.setCardID(9999999999999999l);
         creditCard.setCardStatus("active");
         creditCard.setCardValidDate("2018-12-30");
         creditCard.setCardPIN("test");
-        cardID = creditCardDAO.create(creditCard);
+        cardID = creditCardDAO.insert(creditCard);
         creditCard.setCardID(cardID);
     }
 
@@ -74,7 +74,7 @@ public class JDBCPaymentDAOTest {
         payment.setPaymentDate();
         payment.setPaymentAmount(amount);
 
-        paymentDAO.create(payment);
+        paymentDAO.insert(payment);
         payment1 = paymentDAO.read(payment.getPaymentID());
         paymentDAO.delete(payment.getPaymentID());
 
@@ -99,8 +99,8 @@ public class JDBCPaymentDAOTest {
         payment1.setPaymentDate();
         payment1.setPaymentAmount(amount2);
 
-        paymentDAO.create(payment);
-        paymentDAO.create(payment1);
+        paymentDAO.insert(payment);
+        paymentDAO.insert(payment1);
         paymentList = paymentDAO.readUsingCardID(cardID);
         paymentDAO.delete(payment1.getPaymentID());
         paymentDAO.delete(payment.getPaymentID());
@@ -119,7 +119,7 @@ public class JDBCPaymentDAOTest {
         payment.setPaymentDate();
         payment.setPaymentAmount(amount);
 
-        paymentDAO.create(payment);
+        paymentDAO.insert(payment);
         paymentDAO.delete(payment.getPaymentID());
     }
 
@@ -135,7 +135,7 @@ public class JDBCPaymentDAOTest {
         payment.setPaymentDate();
         payment.setPaymentAmount(amount);
 
-        paymentDAO.create(payment);
+        paymentDAO.insert(payment);
 
         payment.setPaymentDestination("NEWTestType");
         payment.setPaymentAmount(amount2);
@@ -159,7 +159,7 @@ public class JDBCPaymentDAOTest {
         payment.setPaymentDate();
         payment.setPaymentAmount(amount);
 
-        paymentDAO.create(payment);
+        paymentDAO.insert(payment);
         paymentDAO.delete(payment.getPaymentID());
         payment1 = paymentDAO.read(payment.getPaymentID());
 

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <CLIENTS client_id="1" client_login="testLog" client_password="testPass" client_full_name="testFullName" admin_flag="0"/>
+</dataset>

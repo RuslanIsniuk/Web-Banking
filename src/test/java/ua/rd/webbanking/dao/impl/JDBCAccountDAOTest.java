@@ -2,10 +2,8 @@ package ua.rd.webbanking.dao.impl;
 
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.ClientDAO;
-import ua.rd.webbanking.dao.CreditCardDAO;
 import ua.rd.webbanking.entities.Account;
 import ua.rd.webbanking.entities.Client;
-import ua.rd.webbanking.entities.CreditCard;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -38,8 +36,8 @@ public class JDBCAccountDAOTest {
         client2.setClientFullName("TestName2");
         client2.setAdminFlag(false);
 
-        clientID2 = clientDAO.create(client2);
-        clientID = clientDAO.create(client);
+        clientID2 = clientDAO.insert(client2);
+        clientID = clientDAO.insert(client);
         client.setClientID(clientID);
         client2.setClientID(clientID2);
     }
@@ -62,7 +60,7 @@ public class JDBCAccountDAOTest {
         account.setAccountID(9999998);
         account.setAccountBalance(balance);
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
         account1 = accountDAO.read(account.getAccountID());
         accountDAO.delete(account.getAccountID());
 
@@ -88,8 +86,8 @@ public class JDBCAccountDAOTest {
         account1.setAccountID(9999969);
         account1.setAccountBalance(balance);
 
-        accountDAO.create(account);
-        accountDAO.create(account1);
+        accountDAO.insert(account);
+        accountDAO.insert(account1);
         accountList = accountDAO.readUsingClientID(clientID);
         accountDAO.delete(account.getAccountID());
         accountDAO.delete(account1.getAccountID());
@@ -128,9 +126,9 @@ public class JDBCAccountDAOTest {
         account2.setAccountID(9999967);
         account2.setAccountBalance(balance);
 
-        accountDAO.create(account);
-        accountDAO.create(account1);
-        accountDAO.create(account2);
+        accountDAO.insert(account);
+        accountDAO.insert(account1);
+        accountDAO.insert(account2);
         accountList = accountDAO.readAll();
         accountDAO.delete(account.getAccountID());
         accountDAO.delete(account1.getAccountID());
@@ -159,7 +157,7 @@ public class JDBCAccountDAOTest {
         account.setAccountID(9999999);
         account.setAccountBalance(balance);
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
         account1 = accountDAO.read(account.getAccountID());
         accountDAO.delete(account.getAccountID());
 
@@ -180,7 +178,7 @@ public class JDBCAccountDAOTest {
         account.setAccountID(9999999);
         account.setAccountBalance(balance1);
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
 
         account.setAccountBalance(balance2);
         account.setAccountStatus("test2");
@@ -206,7 +204,7 @@ public class JDBCAccountDAOTest {
         account.setAccountID(9999999);
         account.setAccountBalance(balance1);
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
         accountDAO.delete(account.getAccountID());
         account1 = accountDAO.read(clientID);
 

@@ -40,7 +40,7 @@ public class TransferToAnotherCardConfirmTest {
     Payment payment;
 
     @Before
-    public void setUp() {
+    public void setUp() throws AuthorizationException {
         transferToAnotherCardConfirm = new TransferToAnotherCardConfirm(checkClientData, paymentConfirm);
         when(client.getClientID()).thenReturn(1);
         when(request.isRequestedSessionIdValid()).thenReturn(true);

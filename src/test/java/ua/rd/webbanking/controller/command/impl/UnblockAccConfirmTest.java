@@ -35,7 +35,7 @@ public class UnblockAccConfirmTest {
     Client client;
 
     @Before
-    public void setUp() {
+    public void setUp() throws AuthorizationException {
         unblockAccConfirm = new UnblockAccConfirm(checkClientData, unblockAccount);
         when(client.getClientID()).thenReturn(1);
         when(request.getSession().getAttribute("clientData")).thenReturn(client);

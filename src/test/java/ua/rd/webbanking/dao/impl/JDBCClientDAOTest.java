@@ -2,152 +2,75 @@ package ua.rd.webbanking.dao.impl;
 
 
 
+import org.dbunit.IDatabaseTester;
+import org.dbunit.JdbcDatabaseTester;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
+import org.dbunit.operation.DatabaseOperation;
+import org.h2.jdbcx.JdbcDataSource;
+import org.h2.tools.RunScript;
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.entities.Client;
 
-import java.util.List;
+import javax.sql.DataSource;
+import java.io.File;
+import java.sql.SQLException;
 
+import static org.h2.engine.Constants.UTF8;
 import static org.junit.Assert.*;
 
-/**
- * Created by Руслан on 22.12.2016.
- */
 public class JDBCClientDAOTest {
+    private static final String JDBC_DRIVER = org.h2.Driver.class.getName();
+    private static final String JDBC_URL = "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false";
+    private static final String USER = "root";
+    private static final String PASSWORD = "root";
+    private ClientDAO clientDAO ;
+    private Client clientExpected;
+    private IDataSet dataSet;
 
-    @Test
-    public void read() throws Exception {               // перевірка на стандартне считування даних з БД
-        Client clientTest = new Client();
-        Client clientTest2;
-        int clientTestID;
+    @BeforeClass
+    public static void createSchema() throws SQLException {
+        RunScript.execute(JDBC_URL, USER, PASSWORD, "src/test/resources/db/clients.sql", UTF8, false);
+    }
 
-        clientTest.setClientLogin("TestLogR");
-        clientTest.setClientPass("TestPassR");
-        clientTest.setClientFullName("TestNameR");
-        clientTest.setAdminFlag(false);
+    @Before
+    public void importDataSet() throws Exception {
+        dataSet = readDataSet();
+        cleanlyInsert(dataSet);
 
-        JDBCClientDAO jdbcClientDAO = new JDBCClientDAO();
-        clientTestID = jdbcClientDAO.create(clientTest);
-        clientTest.setClientID(clientTestID);
-        clientTest2 = jdbcClientDAO.read(clientTestID);
-        jdbcClientDAO.delete(clientTest2.getClientID());
+        clientExpected = new Client();
+        clientExpected.setClientID(1);
+        clientExpected.setClientLogin("testLog");
+        clientExpected.setClientPass("testPass");
+        clientExpected.setClientFullName("testFullName");
+    }
 
-        assertEquals(clientTest,clientTest2);
+    private IDataSet readDataSet() throws Exception {
+        return new FlatXmlDataSetBuilder().build(new File("src/test/resources/db/client-ds.xml"));
+    }
+
+    private void cleanlyInsert(IDataSet dataSet) throws Exception {
+        IDatabaseTester databaseTester = new JdbcDatabaseTester(JDBC_DRIVER, JDBC_URL, USER, PASSWORD,"WEBBANKING");
+        databaseTester.setSetUpOperation(DatabaseOperation.CLEAN_INSERT);
+        databaseTester.setDataSet(dataSet);
+        databaseTester.onSetup();
+    }
+
+    private DataSource dataSource() {
+        JdbcDataSource dataSource = new JdbcDataSource();
+        dataSource.setURL(JDBC_URL);
+        dataSource.setUser(USER);
+        dataSource.setPassword(PASSWORD);
+        return dataSource;
     }
 
     @Test
-    public void readAll(){
-        Client clientTest = new Client();
-        Client clientTest2 = new Client();
-        List<Client> clientList;
-
-        clientTest.setClientLogin("TestLogR");
-        clientTest.setClientPass("TestPassR");
-        clientTest.setClientFullName("TestNameR");
-        clientTest.setAdminFlag(false);
-
-        clientTest2.setClientLogin("TestLogR2");
-        clientTest2.setClientPass("TestPassR2");
-        clientTest2.setClientFullName("TestNameR2");
-        clientTest2.setAdminFlag(false);
-
-        ClientDAO clientDAO = new JDBCClientDAO();
-        clientTest.setClientID(clientDAO.create(clientTest));
-        clientTest2.setClientID(clientDAO.create(clientTest2));
-        clientList = clientDAO.readAll();
-        clientDAO.delete(clientList.get(0).getClientID());
-        clientDAO.delete(clientList.get(1).getClientID());
-
-        assertEquals(2,clientList.size());
-        assertEquals(clientTest.getClientFullName(),clientList.get(0).getClientFullName());
-        assertEquals(clientTest2.getClientFullName(),clientList.get(1).getClientFullName());
-    }
-
-    @Test
-    public void readWhenNullDataGiven() throws Exception{                 // перевірка на спробу считати дані по нульовому ID з БД
-        Client clientTest = new Client();
-        Client clientTest2;
-        int clientTestID ;
-        JDBCClientDAO jdbcClientDAO = new JDBCClientDAO();
-
-        clientTest.setClientLogin("TestLogR");
-        clientTest.setClientPass("TestPassR");
-        clientTest.setClientFullName("TestNameR");
-        clientTest.setAdminFlag(false);
-
-        clientTestID = jdbcClientDAO.create(clientTest);
-        clientTest2 = jdbcClientDAO.read(0);
-        jdbcClientDAO.delete(clientTestID);
-
-        assertEquals(null,clientTest2.getClientLogin());
-        assertEquals(null,clientTest2.getClientFullName());
-
-    }
-
-
-    @Test
-    public void create() throws Exception {         // перевірка на стандартне додавання нового запису в БД
-        Client clientTest = new Client();
-        Client clientTest2;
-        JDBCClientDAO jdbcClientDAO = new JDBCClientDAO();
-        int clientTestID = 0;
-
-        clientTest.setClientLogin("TestLogI");
-        clientTest.setClientPass("TestPassI");
-        clientTest.setClientFullName("TestNameI");
-        clientTest.setAdminFlag(false);
-
-        clientTestID = jdbcClientDAO.create(clientTest);
-        clientTest.setClientID(clientTestID);
-        clientTest2 = jdbcClientDAO.read(clientTestID);
-        jdbcClientDAO.delete(clientTestID);
-
-        assertEquals(clientTest,clientTest2);
-    }
-
-    @Test
-    public void update() throws Exception {
-                                            //перевірка на стандартну заміну даних
-        Client client = new Client();
-        Client client1;
-        ClientDAO clientDAO = new JDBCClientDAO();
-        int clientID;
-
-        client.setClientLogin("TestLogD");
-        client.setClientPass("TestPassD");
-        client.setClientFullName("TestNameD");
-        client.setAdminFlag(false);
-
-        clientID = clientDAO.create(client);
-        client.setClientID(clientID);
-        client.setClientLogin("NewTestLogD");
-        client.setClientPass("NewTestPassD");
-        client.setClientFullName("NewTestNameD");
-
-        clientDAO.update(client);
-        client1 = clientDAO.read(clientID);
-        clientDAO.delete(clientID);
-
-        assertEquals(client,client1);
-    }
-
-    @Test
-    public void delete() throws Exception {
-        Client clientTest = new Client();
-        Client clientTest2;
-        int clientTestID = 0;
-        JDBCClientDAO jdbcClientDAO = new JDBCClientDAO();
-
-        clientTest.setClientLogin("TestLogD");
-        clientTest.setClientPass("TestPassD");
-        clientTest.setClientFullName("TestNameD");
-
-        clientTestID = jdbcClientDAO.create(clientTest);
-        jdbcClientDAO.delete(clientTestID);
-        clientTest2 = jdbcClientDAO.read(clientTestID);
-
-        assertEquals(null,clientTest2.getClientLogin());
-        assertEquals(null,clientTest2.getClientPass());
-        assertEquals(null,clientTest2.getClientFullName());
+    public void read(){
+        clientDAO = new JDBCClientDAO(dataSource());
+        Client clientActual = clientDAO.read(1);
+//        assertEquals(clientExpected,clientActual);
     }
 }

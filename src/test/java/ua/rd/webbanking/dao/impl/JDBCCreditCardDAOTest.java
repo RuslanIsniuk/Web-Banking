@@ -9,7 +9,6 @@ import ua.rd.webbanking.entities.CreditCard;
 import org.junit.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,7 +30,7 @@ public class JDBCCreditCardDAOTest {
         client.setClientLogin("TestLog");
         client.setClientPass("TestPass");
         client.setClientFullName("TestName");
-        clientID = clientDAO.create(client);
+        clientID = clientDAO.insert(client);
         client.setClientID(clientID);
 
         BigDecimal balance = new BigDecimal("0.00");
@@ -42,7 +41,7 @@ public class JDBCCreditCardDAOTest {
         account.setAccountBalance(balance);
         accountID = account.getAccountID();
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
     }
 
     @AfterClass
@@ -62,7 +61,7 @@ public class JDBCCreditCardDAOTest {
         creditCard.setCardValidDate("2018-12-30");
         creditCard.setCardPIN("test");
 
-        creditCardDAO.create(creditCard);
+        creditCardDAO.insert(creditCard);
         creditCard1 = creditCardDAO.read(creditCard.getCardID());
         creditCardDAO.delete(creditCard.getCardID());
 
@@ -87,8 +86,8 @@ public class JDBCCreditCardDAOTest {
         creditCard1.setCardValidDate("2012-10-10");
         creditCard1.setCardPIN("test");
 
-        creditCardDAO.create(creditCard);
-        creditCardDAO.create(creditCard1);
+        creditCardDAO.insert(creditCard);
+        creditCardDAO.insert(creditCard1);
         creditCardArrayList = creditCardDAO.readUsingAccountID(accountID);
         creditCardDAO.delete(creditCard.getCardID());
         creditCardDAO.delete(creditCard1.getCardID());
@@ -122,9 +121,9 @@ public class JDBCCreditCardDAOTest {
         creditCard2.setCardValidDate("2012-9-20");
         creditCard2.setCardPIN("test2");
 
-        creditCardDAO.create(creditCard);
-        creditCardDAO.create(creditCard1);
-        creditCardDAO.create(creditCard2);
+        creditCardDAO.insert(creditCard);
+        creditCardDAO.insert(creditCard1);
+        creditCardDAO.insert(creditCard2);
         creditCardArrayList = creditCardDAO.readAll();
         creditCardDAO.delete(creditCard.getCardID());
         creditCardDAO.delete(creditCard1.getCardID());
@@ -146,7 +145,7 @@ public class JDBCCreditCardDAOTest {
         creditCard.setCardValidDate("2018-12-30");
         creditCard.setCardPIN("test");
 
-        creditCardDAO.create(creditCard);
+        creditCardDAO.insert(creditCard);
         creditCard1 = creditCardDAO.read(creditCard.getCardID());
         creditCardDAO.delete(creditCard.getCardID());
 
@@ -165,7 +164,7 @@ public class JDBCCreditCardDAOTest {
         creditCard.setCardValidDate("2018-12-30");
         creditCard.setCardPIN("test");
 
-        creditCardDAO.create(creditCard);
+        creditCardDAO.insert(creditCard);
 
         creditCard.setCardStatus("active");
         creditCard.setCardValidDate("2012-10-10");
@@ -191,7 +190,7 @@ public class JDBCCreditCardDAOTest {
         creditCard.setCardValidDate("2018-12-30");
         creditCard.setCardPIN("test");
 
-        creditCardDAO.create(creditCard);
+        creditCardDAO.insert(creditCard);
         creditCardDAO.delete(creditCard.getCardID());
         creditCard1 = creditCardDAO.read(creditCard.getCardID());
 
