@@ -42,12 +42,14 @@
                 </tr>
             </c:forEach>
         </table>
-        <p><blockquote>
-        <form action="/Servlet" method="post">
+        <blockquote>
+
+        <p><form action="/Servlet" method="post">
         <input type="hidden" value="returnToPerAdminAreaPage" name="actionType"/>
         <input type="submit" align="center" value="Back" name="homeButton"/>
-        </form>
-        </blockquote></p>
+        </form></p>
+        </blockquote>
+
     </blockquote>
 </blockquote>
 </body>
