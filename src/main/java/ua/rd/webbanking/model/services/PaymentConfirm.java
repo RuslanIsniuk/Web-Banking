@@ -43,7 +43,7 @@ public class PaymentConfirm {
                         .paymentDestination("For communal services paid by " + account.getAccountClient().getClientFullName() + " on № " + destination + ".")
                         .paymentAmount(amount)
                         .build();
-                paymentDAO.create(payment);
+                paymentDAO.insert(payment);
                 break;
 
             case MOBILE_PAYMENT:
@@ -52,7 +52,7 @@ public class PaymentConfirm {
                         .paymentDestination("For mobile services paid by " + account.getAccountClient().getClientFullName() + " on № " + destination + ".")
                         .paymentAmount(amount)
                         .build();
-                paymentDAO.create(payment);
+                paymentDAO.insert(payment);
                 break;
 
             case INTERNET_PAYMENT:
@@ -61,7 +61,7 @@ public class PaymentConfirm {
                         .paymentDestination("For internet services paid by " + account.getAccountClient().getClientFullName() + " on № " + destination + ".")
                         .paymentAmount(amount)
                         .build();
-                paymentDAO.create(payment);
+                paymentDAO.insert(payment);
                 break;
 
             case TV_PAYMENT:
@@ -70,7 +70,7 @@ public class PaymentConfirm {
                         .paymentDestination("For TV services paid by " + account.getAccountClient().getClientFullName() + " on № " + destination + ".")
                         .paymentAmount(amount)
                         .build();
-                paymentDAO.create(payment);
+                paymentDAO.insert(payment);
                 break;
         }
 
@@ -102,7 +102,7 @@ public class PaymentConfirm {
                 .paymentDestination("For mobile services paid by " + accountFrom.getAccountClient().getClientFullName() + " on № " + CreditCard.cardNumberToString(cardIDTo) + ".")
                 .paymentAmount(amount)
                 .build();
-        paymentDAO.create(payment);
+        paymentDAO.insert(payment);
         return payment;
     }
 

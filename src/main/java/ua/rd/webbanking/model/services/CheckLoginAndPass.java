@@ -11,7 +11,7 @@ public class CheckLoginAndPass {
         ClientDAO clientDAO = new JDBCClientDAO();
         Client client = clientDAO.read(userLogin, userPass);
 
-        if (client.getClientID() == 0) {
+        if (!(client instanceof Client)) {
             throw new ServiceException("Error! Check login or password!");
         }
 

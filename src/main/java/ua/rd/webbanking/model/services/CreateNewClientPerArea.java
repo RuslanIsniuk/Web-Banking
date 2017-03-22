@@ -32,7 +32,7 @@ public class CreateNewClientPerArea {
             }
         }
 
-        return clientDAO.create(client);
+        return clientDAO.insert(client);
     }
 
     public void createNewAccount(Account account) throws ServiceException{
@@ -45,7 +45,7 @@ public class CreateNewClientPerArea {
             }
         }
 
-        accountDAO.create(account);
+        accountDAO.insert(account);
     }
 
     public void createNewCreditCard(CreditCard creditCard) throws ServiceException{
@@ -58,6 +58,6 @@ public class CreateNewClientPerArea {
             }
         }
 
-        creditCardDAO.create(creditCard);
+        creditCardDAO.insert(creditCard);
     }
 }

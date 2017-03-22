@@ -1,5 +1,6 @@
 package ua.rd.webbanking.model.services;
 
+import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
 import ua.rd.webbanking.dao.impl.JDBCClientDAO;
@@ -16,8 +17,13 @@ public class CheckClientData {
         return accountAuthentic.getAccountClient().getClientID() == clientID;
     }
 
-    public  boolean checkAdminFlag(int clientID){
+    public  boolean checkAdminFlag(int clientID)throws AuthorizationException{
         Client client = clientDAO.read(clientID);
+
+        if(!(client instanceof Client)){
+            throw new AuthorizationException("Error! Check login or password!");
+        }
+
         if(client.isAdminFlag()){
             return true;
         }else{
