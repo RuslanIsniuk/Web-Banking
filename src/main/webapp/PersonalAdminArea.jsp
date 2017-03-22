@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Руслан
-  Date: 26.02.2017
-  Time: 11:33
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 
@@ -12,46 +5,60 @@
 <html>
 <head>
     <title>Web-banking Admin Personal Area</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-<blockquote>
-    <blockquote>
-        <p>
-        <h2>Hello, <c:out value="${clientName}"></c:out> .</h2></p>
-        <br>
-        <p><h4>Operations</h4></p>
-        <p>===============================</p>
-        <table border="1">
-            <tr>
-                <td>Create new client's account</td>
-                <td>
-                    <form method="post" action="/Servlet">
-                        <input type="submit" value="Choose" align="center"/>
-                        <input type="hidden" value="${cardID}" name="cardID"/>
-                        <input type="hidden" value="openFormForCreatingNewAccPage" name="actionType"/></form>
-                </td>
-            </tr>
 
-            <tr>
-                <td>View client's list</td>
-                <td>
-                    <form method="post" action="/Servlet">
-                        <input type="submit" value="Choose" align="center"/>
-                        <input type="hidden" value="openAllClientsAccPage" name="actionType"/></form>
-                </td>
-            </tr>
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand">Web-Banking Demo</a>
+        </div>
 
-            <tr>
-                <td>Unblock account/card</td>
-                <td>
-                    <form method="post" action="/Servlet">
-                        <input type="submit" value="Choose" align="center"/>
-                        <input type="hidden" value="openBlockedAccountsPage" name="actionType"/></form>
-                </td>
-            </tr>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <form method="post" action="/Servlet">
+                    <input type="hidden" value="logOut" name="actionType"/>
+                    <button type="submit" class="btn btn-default navbar-btn">
+                        <span class="glyphicon glyphicon-log-out"></span> Log out
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-        </table>
-    </blockquote>
-</blockquote>
+<div class="container col-md-offset-4 col-md-4">
+    <h2>Hello, <c:out value="${clientName}"></c:out>.</h2>
+    <div class="panel panel-default ">
+        <div class="panel-heading">Operations</div>
+        <div class="panel-body">
+            <p>
+            <form method="post" action="/Servlet">
+                <input type="submit" value="Create new client's account" class="btn btn-primary btn-block"/>
+                <input type="hidden" value="${cardID}" name="cardID"/>
+                <input type="hidden" value="openFormForCreatingNewAccPage" name="actionType"/>
+            </form>
+            </p>
+            <p>
+            <form method="post" action="/Servlet">
+                <input type="submit" value="View client's list" class="btn btn-primary btn-block"/>
+                <input type="hidden" value="openAllClientsAccPage" name="actionType"/>
+            </form>
+            </p>
+            <p>
+            <form method="post" action="/Servlet">
+                <input type="submit" value="Unblock account/card" class="btn btn-primary btn-block"/>
+                <input type="hidden" value="openBlockedAccountsPage" name="actionType"/>
+            </form>
+            </p>
+        </div>
+    </div>
+</div>
 </body>
 </html>

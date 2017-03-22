@@ -1,0 +1,14 @@
+.navbar-custom {
+    color: #777777;
+    background-color: #68a2d1;
+}
+
+.navbar-custom .navbar-brand{
+    color: #3d3636;
+    font-size: 20px;
+    font-family: inherit;
+}
+
+.navbar-custom .navbar-nav .glyphicon{
+    color: #3d3636;
+}
