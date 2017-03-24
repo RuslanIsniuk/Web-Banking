@@ -62,8 +62,12 @@
         </tbody>
     </table>
 
-    <p>
-    <h3><font color="#006400"><c:out value="${infoMessage}"></c:out></font></h3></p>
+    <div class="row">
+        <br>
+        <br>
+        <h3><font color="#006400"><c:out value="${infoMessage}"></c:out></font></h3></p>
+    </div>
+
 </div>
 </body>
 </html>

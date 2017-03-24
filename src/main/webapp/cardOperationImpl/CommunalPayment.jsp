@@ -64,7 +64,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <input type="text" class="form-control" maxlength="4" name="communalIDPart1">
+                    <input type="text" class="form-control" maxlength="4" name="communalIDPart2">
                 </div>
             </div>
 

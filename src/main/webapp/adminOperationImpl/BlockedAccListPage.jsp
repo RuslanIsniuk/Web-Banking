@@ -61,6 +61,7 @@
                 <td>
                     <form method="post" action="/Servlet">
                         <input type="hidden" value="${cardList[i].cardID}" name="cardID"/>
+                        <input type="hidden" value="${clientList[i].clientFullName}" name="clientFullName"/>
                         <input type="hidden" value="openUnblockAccPage" name="actionType"/>
                         <input type="submit" value="Unblock" name="chooseButton" class="btn btn-primary btn-md"/>
                     </form>
