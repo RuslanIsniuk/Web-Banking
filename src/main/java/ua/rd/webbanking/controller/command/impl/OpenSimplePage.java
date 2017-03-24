@@ -141,10 +141,12 @@ public class OpenSimplePage extends Command {
 
         long cardID = getCreditCardIDFromRequest(request);
         CreditCard creditCard = getClientsData.getCreditCardInfo(cardID);
+        String clientFullName = request.getParameter("clientFullName");
 
         request.setAttribute("cardID",creditCard.getCardID());
         request.setAttribute("cardIDStr",CreditCard.cardNumberToString(cardID));
         request.setAttribute("accountID",creditCard.getCardAccount().getAccountID());
+        request.setAttribute("clientFullName",clientFullName);
         return "/adminOperationImpl/UnblockAccPage.jsp";
     }
 

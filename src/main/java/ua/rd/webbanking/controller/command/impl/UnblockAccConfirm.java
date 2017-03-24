@@ -31,10 +31,12 @@ public class UnblockAccConfirm extends Command {
         }
 
         long cardID = getCreditCardIDFromRequest(request);
+        String clientFullName = "Client: " + request.getParameter("clientFullName");
 
         unblockAccount.unblockConfirm(cardID);
 
         request.setAttribute("statusMessage", "Card № " + CreditCard.cardNumberToString(cardID) + " unblocked successfully!");
+        request.setAttribute("clientFullName",clientFullName);
         pathToJSP = "/adminOperationImpl/OperationConfirm.jsp";
 
         return pathToJSP;

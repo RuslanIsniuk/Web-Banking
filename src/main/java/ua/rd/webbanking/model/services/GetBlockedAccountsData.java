@@ -15,7 +15,7 @@ public class GetBlockedAccountsData {
         List<CreditCard> blockedCreditCardList = new ArrayList<>();
 
         for (CreditCard creditCard : creditCardList) {
-            if ("block".equals(creditCard.getCardStatus())) {
+            if ("blocked".equals(creditCard.getCardStatus())) {
                 blockedCreditCardList.add(creditCard);
             }
         }
