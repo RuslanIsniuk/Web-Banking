@@ -38,7 +38,7 @@ public class CheckLoginInput extends Command {
                 request.setAttribute("clientID", client.getClientID());
 
                 HttpSession session = request.getSession(true);
-                session.setMaxInactiveInterval(600);
+                session.setMaxInactiveInterval(60);
                 session.setAttribute("clientData", client);
 
                 pathToJSP = openSimplePage.execute(request);

@@ -13,7 +13,7 @@ public abstract class Command {
 
     public abstract String execute(HttpServletRequest request) throws AuthorizationException;
 
-    protected void checkCreditCardOwner(HttpServletRequest request) throws AuthorizationException {
+    protected void checkCreditCardOwner(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         if (!request.isRequestedSessionIdValid()) {
             throw new AuthorizationException();
         }
@@ -35,7 +35,7 @@ public abstract class Command {
         }
     }
 
-    protected long getCreditCardIDFromRequest(HttpServletRequest request) {
+    protected long getCreditCardIDFromRequest(HttpServletRequest request) throws NumberFormatException{
         return Long.parseLong(request.getParameter("cardID"));
     }
 

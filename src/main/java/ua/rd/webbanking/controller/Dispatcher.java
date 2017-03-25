@@ -94,6 +94,10 @@ public class Dispatcher {
                 logger.error(se);
                 request.setAttribute("errorMessage", se.getMessage());
                 pathToJSP = "/index.jsp";
+            }catch (NumberFormatException ne){
+                logger.error(ne);
+                request.setAttribute("errorMessage", "403 Forbidden access!");
+                pathToJSP = "/403_error.jsp";
             }
         }
         return pathToJSP;

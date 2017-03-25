@@ -37,7 +37,7 @@ public class ClientsPaymentConfirm extends Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws AuthorizationException {
+    public String execute(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         String pathToJSP;
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);

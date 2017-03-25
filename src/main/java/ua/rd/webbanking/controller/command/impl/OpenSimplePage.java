@@ -180,7 +180,7 @@ public class OpenSimplePage extends Command {
         return "/adminOperationImpl/ClientDetailsPage.jsp";
     }
 
-    private String openCardOperationMenu(HttpServletRequest request) throws AuthorizationException {
+    private String openCardOperationMenu(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -190,7 +190,7 @@ public class OpenSimplePage extends Command {
         return "/CardOperationPage.jsp";
     }
 
-    private String openBlockAccPage(HttpServletRequest request) throws AuthorizationException {
+    private String openBlockAccPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -202,7 +202,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/BlockAccount.jsp";
     }
 
-    private String openCardTransactionPage(HttpServletRequest request) throws AuthorizationException {
+    private String openCardTransactionPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -212,7 +212,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/CardTransaction.jsp";
     }
 
-    private String openCommPaymentPage(HttpServletRequest request) throws AuthorizationException {
+    private String openCommPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -222,7 +222,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/CommunalPayment.jsp";
     }
 
-    private String openMobilePaymentPage(HttpServletRequest request) throws AuthorizationException {
+    private String openMobilePaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -232,7 +232,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/MobilePayment.jsp";
     }
 
-    private String openInternetPaymentPage(HttpServletRequest request) throws AuthorizationException{
+    private String openInternetPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -242,7 +242,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/InternetPayment.jsp";
     }
 
-    private String openTVPaymentPage(HttpServletRequest request) throws AuthorizationException{
+    private String openTVPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -252,7 +252,7 @@ public class OpenSimplePage extends Command {
         return "/cardOperationImpl/TVPayment.jsp";
     }
 
-    private String openTranToAnoCardPage(HttpServletRequest request) throws AuthorizationException {
+    private String openTranToAnoCardPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -303,11 +303,14 @@ public class OpenSimplePage extends Command {
     }
 
     private String logOut(HttpServletRequest request) throws AuthorizationException{
-        request.getSession(false).invalidate();
-        HttpSession session = request.getSession(false);
-        if(session!=null){
-            throw new AuthorizationException("Error! Session not closed!");
+        if(request.getSession() instanceof HttpSession){
+            request.getSession(false).invalidate();
+            HttpSession session = request.getSession(false);
+            if(session!=null){
+                throw new AuthorizationException("Error! Session not closed!");
+            }
         }
+
         return "/index.jsp";
     }
 }
