@@ -111,11 +111,11 @@ public class PaymentConfirm {
             throw new NotEnoughMoneyException();
         }
 
-        if (("block".equals(cardFrom.getCardAccount().getAccountStatus())) || ("block".equals(cardTo.getCardAccount().getAccountStatus()))) {
+        if (("blocked".equals(cardFrom.getCardAccount().getAccountStatus())) || ("blocked".equals(cardTo.getCardAccount().getAccountStatus()))) {
             throw new AccountBlockedException();
         }
 
-        if (("block".equals(cardFrom.getCardStatus())) || ("block".equals(cardTo.getCardStatus()))) {
+        if (("blocked".equals(cardFrom.getCardStatus())) || ("blocked".equals(cardTo.getCardStatus()))) {
             throw new CardBlockedException();
         }
     }
@@ -126,11 +126,11 @@ public class PaymentConfirm {
             throw new NotEnoughMoneyException();
         }
 
-        if ("block".equals(card.getCardAccount().getAccountStatus())) {
+        if ("blocked".equals(card.getCardAccount().getAccountStatus())) {
             throw new AccountBlockedException();
         }
 
-        if ("block".equals(card.getCardStatus())) {
+        if ("blocked".equals(card.getCardStatus())) {
             throw new CardBlockedException();
         }
     }

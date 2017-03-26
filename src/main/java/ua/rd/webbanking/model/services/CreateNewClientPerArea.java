@@ -17,17 +17,29 @@ import ua.rd.webbanking.model.exceptions.ServiceException;
 import java.util.List;
 
 public class CreateNewClientPerArea {
+    private ClientDAO clientDAO = new JDBCClientDAO();
+    private AccountDAO accountDAO = new JDBCAccountDAO();
+    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
 
-    public int createNewClient(Client client)throws ServiceException{
-        ClientDAO clientDAO = new JDBCClientDAO();
+    public CreateNewClientPerArea() {
+//        default constructor
+    }
+
+    public CreateNewClientPerArea(ClientDAO clientDAO, AccountDAO accountDAO, CreditCardDAO creditCardDAO) {
+        this.clientDAO = clientDAO;
+        this.accountDAO = accountDAO;
+        this.creditCardDAO = creditCardDAO;
+    }
+
+    public int createNewClient(Client client) throws ServiceException {
         List<Client> clientList = clientDAO.readAll();
 
-        for(Client clientFromList:clientList){
-            if(client.getClientLogin().equals(clientFromList.getClientLogin())){
+        for (Client clientFromList : clientList) {
+            if (client.getClientLogin().equals(clientFromList.getClientLogin())) {
                 throw new DuplicateClientDataException();
             }
 
-            if(client.getClientFullName().equals(clientFromList.getClientFullName())){
+            if (client.getClientFullName().equals(clientFromList.getClientFullName())) {
                 throw new DuplicateClientDataException();
             }
         }
@@ -35,12 +47,11 @@ public class CreateNewClientPerArea {
         return clientDAO.insert(client);
     }
 
-    public void createNewAccount(Account account) throws ServiceException{
-        AccountDAO accountDAO = new JDBCAccountDAO();
+    public void createNewAccount(Account account) throws ServiceException {
         List<Account> accountList = accountDAO.readAll();
 
-        for(Account accountFromList: accountList){
-            if(account.getAccountID() == accountFromList.getAccountID()){
+        for (Account accountFromList : accountList) {
+            if (account.getAccountID() == accountFromList.getAccountID()) {
                 throw new DuplicateAccountDataException();
             }
         }
@@ -48,12 +59,11 @@ public class CreateNewClientPerArea {
         accountDAO.insert(account);
     }
 
-    public void createNewCreditCard(CreditCard creditCard) throws ServiceException{
-        CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
+    public void createNewCreditCard(CreditCard creditCard) throws ServiceException {
         List<CreditCard> creditCardList = creditCardDAO.readAll();
 
-        for(CreditCard creditCardFromList:creditCardList){
-            if(creditCard.getCardID() == creditCardFromList.getCardID()){
+        for (CreditCard creditCardFromList : creditCardList) {
+            if (creditCard.getCardID() == creditCardFromList.getCardID()) {
                 throw new DuplicateCreditCardException();
             }
         }

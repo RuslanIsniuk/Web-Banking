@@ -12,6 +12,14 @@ public class CheckClientData {
     private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
     private ClientDAO clientDAO = new JDBCClientDAO();
 
+    public CheckClientData(){
+//        default constructor
+    }
+
+    public CheckClientData(ClientDAO clientDAO){
+        this.clientDAO = clientDAO;
+    }
+
     public boolean checkCreditCardID(long cardID, int clientID){
         Account accountAuthentic = creditCardDAO.read(cardID).getCardAccount();
         return accountAuthentic.getAccountClient().getClientID() == clientID;
