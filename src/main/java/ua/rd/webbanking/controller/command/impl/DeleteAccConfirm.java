@@ -22,7 +22,7 @@ public class DeleteAccConfirm extends Command {
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {
-        String pathToJSP = "/adminOperationImpl/OperationConfirm.jsp";
+        String pathToJSP = "/adminPages/OperationConfirm.jsp";
         Client clientAdmin = getClientFromSession(request);
 
         if (!checkClientData.checkAdminFlag(clientAdmin.getClientID())) {

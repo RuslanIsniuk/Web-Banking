@@ -32,7 +32,7 @@ public class CreateNewClientAcc extends Command {
     private static final String CARD_ID_FIELD = "\\d{16}";
     private static final String CARD_PIN_FIELD = "\\d{4}";
     private static final String CARD_DATA_FIELD = "[2][0][1-2][0-9][-](([0]?[1-9])||([1][0-2]))[-](([0-2]?[1-9])||([3][01])||([12][0]))";
-    private static final String DEFAULT_PASS_TO_JSP = "/adminOperationImpl/CreateNewClientPage.jsp";
+    private static final String DEFAULT_PASS_TO_JSP = "/adminPages/CreateNewClientPage.jsp";
 
     public CreateNewClientAcc() {
 //        default constructor
@@ -60,7 +60,7 @@ public class CreateNewClientAcc extends Command {
             CreditCard creditCard = validationCardDataInput(request, account);
             createNewClientPerArea.createNewCreditCard(creditCard);
             request.setAttribute("statusMessage", "New client created successfully!");
-            pathToJSP = "/adminOperationImpl/OperationConfirm.jsp";
+            pathToJSP = "/adminPages/OperationConfirm.jsp";
 
         } catch (InvalidClientDataInputException icde) {
             logger.error(icde);
@@ -93,7 +93,6 @@ public class CreateNewClientAcc extends Command {
         String clientLogin = request.getParameter("clientLogin");
         String clientPass = request.getParameter("clientPass");
         String clientFullName = request.getParameter("clientFullName");
-        String clientAdminFlag = request.getParameter("adminFlag");
 
         if (!validationOnCorrectInput(clientLogin, LOGIN_OR_PASS_FIELD)) {
             throw new InvalidClientDataInputException("login");
@@ -110,12 +109,7 @@ public class CreateNewClientAcc extends Command {
         client.setClientLogin(clientLogin);
         client.setClientPass(clientPass);
         client.setClientFullName(clientFullName);
-
-        if ("yes".equals(clientAdminFlag)) {
-            client.setAdminFlag(true);
-        } else {
-            client.setAdminFlag(false);
-        }
+        client.setAdminFlag(false);
 
         return client;
     }

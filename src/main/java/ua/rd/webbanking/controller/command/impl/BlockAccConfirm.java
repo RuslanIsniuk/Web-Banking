@@ -32,7 +32,7 @@ public class BlockAccConfirm extends Command {
 
         request.setAttribute("infoMessage", "Card № " + cardIDStr + "blocked successfully!");
         request.setAttribute("cardID", cardID);
-        pathToJSP = "/cardOperationImpl/BlockAccount.jsp";
+        pathToJSP = "/clientPages/BlockAccount.jsp";
 
         return pathToJSP;
     }

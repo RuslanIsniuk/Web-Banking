@@ -2,6 +2,7 @@ package ua.rd.webbanking.servlets;
 
 import ua.rd.webbanking.controller.Dispatcher;
 import org.apache.log4j.Logger;
+import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -27,10 +28,19 @@ public class Servlet extends HttpServlet {
     }
 
     protected void parseRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        String pathToWebPage = dispatcher.logicIdentificator(request);
+        try{
+            String pathToWebPage = dispatcher.logicIdentificator(request);
 
-        RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher(pathToWebPage);
-        requestDispatcher.forward(request,response);
+            RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher(pathToWebPage);
+            requestDispatcher.forward(request,response);
+        }catch (AuthorizationException ae){
+            logger.error(ae);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }catch (NumberFormatException ne){
+            logger.error(ne);
+            response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        }
+
     }
 
 }

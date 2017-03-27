@@ -85,14 +85,6 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3">Admin rights:</label>
-                <div class="col-sm-4">
-                    <input type="radio" value="yes" name="adminFlag"/> YES
-                    <input type="radio" value="no" name="adminFlag"/> NO
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="control-label col-md-8"><font color="#dc143c"><c:out
                         value="${errorMessageClient}"></c:out></font></label>
             </div>

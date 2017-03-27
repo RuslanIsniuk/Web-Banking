@@ -147,7 +147,7 @@ public class OpenSimplePage extends Command {
         request.setAttribute("cardIDStr",CreditCard.cardNumberToString(cardID));
         request.setAttribute("accountID",creditCard.getCardAccount().getAccountID());
         request.setAttribute("clientFullName",clientFullName);
-        return "/adminOperationImpl/UnblockAccPage.jsp";
+        return "/adminPages/UnblockAccPage.jsp";
     }
 
     private String openDeleteAccPage(HttpServletRequest request)throws AuthorizationException{
@@ -161,7 +161,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("clientFullName",clientFullName);
         request.setAttribute("clientID",clientID);
-        return "/adminOperationImpl/DeleteAccPage.jsp";
+        return "/adminPages/DeleteAccPage.jsp";
     }
 
     private String openClientDetailsPage(HttpServletRequest request) throws AuthorizationException{
@@ -177,7 +177,7 @@ public class OpenSimplePage extends Command {
         request.setAttribute("cardList",getClientsData.getCreditCards(client));
         request.setAttribute("cardListStr",getClientsData.getCreditCardsStr(client));
         request.setAttribute("client",client);
-        return "/adminOperationImpl/ClientDetailsPage.jsp";
+        return "/adminPages/ClientDetailsPage.jsp";
     }
 
     private String openCardOperationMenu(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
@@ -199,7 +199,7 @@ public class OpenSimplePage extends Command {
         request.setAttribute("accountID", account.getAccountID());
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/BlockAccount.jsp";
+        return "/clientPages/BlockAccount.jsp";
     }
 
     private String openCardTransactionPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
@@ -209,7 +209,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/CardTransaction.jsp";
+        return "/clientPages/CardTransaction.jsp";
     }
 
     private String openCommPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
@@ -219,7 +219,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/CommunalPayment.jsp";
+        return "/clientPages/CommunalPayment.jsp";
     }
 
     private String openMobilePaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
@@ -229,7 +229,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/MobilePayment.jsp";
+        return "/clientPages/MobilePayment.jsp";
     }
 
     private String openInternetPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
@@ -239,7 +239,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/InternetPayment.jsp";
+        return "/clientPages/InternetPayment.jsp";
     }
 
     private String openTVPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
@@ -249,7 +249,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/TVPayment.jsp";
+        return "/clientPages/TVPayment.jsp";
     }
 
     private String openTranToAnoCardPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
@@ -259,7 +259,7 @@ public class OpenSimplePage extends Command {
 
         request.setAttribute("cardID", cardID);
         request.setAttribute("cardIDStr", cardIDStr);
-        return "/cardOperationImpl/TransferMToAnotherCard.jsp";
+        return "/clientPages/TransferMToAnotherCard.jsp";
     }
 
     private String openAllClientsAccPage(HttpServletRequest request) throws AuthorizationException {
@@ -270,7 +270,7 @@ public class OpenSimplePage extends Command {
         }
 
         request.setAttribute("clientList", getClientsData.getClientsList());
-        return "/adminOperationImpl/ClientsListPage.jsp";
+        return "/adminPages/ClientsListPage.jsp";
     }
 
     private String openBlockedAccountsPage(HttpServletRequest request) throws AuthorizationException {
@@ -290,7 +290,7 @@ public class OpenSimplePage extends Command {
         request.setAttribute("accountList", accounts);
         request.setAttribute("clientList", clients);
         request.setAttribute("sizeList", creditCards.size());
-        return "/adminOperationImpl/BlockedAccListPage.jsp";
+        return "/adminPages/BlockedAccListPage.jsp";
     }
 
     private String openFormForCreatingNewAccPage(HttpServletRequest request) throws AuthorizationException {
@@ -299,7 +299,7 @@ public class OpenSimplePage extends Command {
         if (!checkClientData.checkAdminFlag(client.getClientID())) {
             throw new AuthorizationException();
         }
-        return "/adminOperationImpl/CreateNewClientPage.jsp";
+        return "/adminPages/CreateNewClientPage.jsp";
     }
 
     private String logOut(HttpServletRequest request) throws AuthorizationException{

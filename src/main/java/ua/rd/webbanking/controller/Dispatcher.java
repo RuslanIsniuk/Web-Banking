@@ -21,7 +21,7 @@ public class Dispatcher {
     private ClientsPaymentConfirm clientsPaymentConfirm = new ClientsPaymentConfirm();
     private Dispatcher(){}
 
-    public String logicIdentificator(HttpServletRequest request) {
+    public String logicIdentificator(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
         String pathToJSP ="";
         String attributeStr = elementaryIdentification(request);
 
@@ -33,7 +33,7 @@ public class Dispatcher {
             request.setAttribute("errorMessage", "Error! Nothing chosen!");
             pathToJSP = request.getParameter("pageLocation");
         }else{
-            try{
+//            try{
                 switch (attributeStr) {
                     case "CheckLoginData":
                         pathToJSP = checkLoginInput.execute(request);
@@ -90,15 +90,15 @@ public class Dispatcher {
                         logger.error("Error in dispatcher class!");
                         break;
                 }
-            }catch (AuthorizationException se){
-                logger.error(se);
-                request.setAttribute("errorMessage", se.getMessage());
-                pathToJSP = "/index.jsp";
-            }catch (NumberFormatException ne){
-                logger.error(ne);
-                request.setAttribute("errorMessage", "403 Forbidden access!");
-                pathToJSP = "/403_error.jsp";
-            }
+//            }catch (AuthorizationException se){
+//                logger.error(se);
+//                request.setAttribute("errorMessage", se.getMessage());
+//                pathToJSP = "/index.jsp";
+//            }catch (NumberFormatException ne){
+//                logger.error(ne);
+//                request.setAttribute("errorMessage", "403 Forbidden access!");
+//                pathToJSP = "/403_error.jsp";
+//            }
         }
         return pathToJSP;
     }

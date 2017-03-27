@@ -66,7 +66,14 @@ public class GetClientsData {
     }
 
     public List<Client> getClientsList(){
-        return clientDAO.readAll();
+        List <Client> finalClientList = new ArrayList<>();
+        List <Client> clientList = clientDAO.readAll();
+        for(Client clientFromList:clientList){
+            if(!(clientFromList.isAdminFlag())){
+                finalClientList.add(clientFromList);
+            }
+        }
+        return finalClientList;
     }
 
     public List<CreditCard> getAllCreditCards(){

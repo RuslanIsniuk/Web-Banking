@@ -55,17 +55,17 @@ public class ClientsPaymentConfirm extends Command {
                 request.setAttribute("destinationID", destinationID);
                 request.setAttribute("infoMessage", payment.getPaymentDestination());
                 request.setAttribute("statusMessage", "Operation successfully completed! PaymentConfirm № " + payment.getPaymentID() + ".");
-                pathToJSP = "/cardOperationImpl/PaymentConfirm.jsp";
+                pathToJSP = "/clientPages/PaymentConfirm.jsp";
             } catch (ServiceException se) {
                 logger.info(se);
                 request.setAttribute("cardID", cardID);
                 request.setAttribute("errorMessage", se.getMessage());
-                pathToJSP = "/cardOperationImpl/PaymentError.jsp";
+                pathToJSP = "/clientPages/PaymentError.jsp";
             }
         } else {
             request.setAttribute("cardID", cardID);
             request.setAttribute("errorMessage", "Error! Incorrect data input!");
-            pathToJSP = "/cardOperationImpl/PaymentError.jsp";
+            pathToJSP = "/clientPages/PaymentError.jsp";
         }
         return pathToJSP;
     }

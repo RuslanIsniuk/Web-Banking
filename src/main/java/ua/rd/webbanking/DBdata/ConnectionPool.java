@@ -59,6 +59,8 @@ public class ConnectionPool implements ConnectionUtil{
 
     @Override
     public Connection getConnection() throws SQLException {
-        return this.cpds.getConnection();
+        Connection connection = this.cpds.getConnection();
+        connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+        return connection;
     }
 }
