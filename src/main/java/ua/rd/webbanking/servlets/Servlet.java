@@ -18,25 +18,25 @@ public class Servlet extends HttpServlet {
     private static final Logger logger = Logger.getLogger(Servlet.class);
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException {
-        parseRequest(request,response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        parseRequest(request, response);
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException,IOException{
-        parseRequest(request,response);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        parseRequest(request, response);
     }
 
-    protected void parseRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-        try{
+    protected void parseRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
             String pathToWebPage = dispatcher.logicIdentificator(request);
 
             RequestDispatcher requestDispatcher = request.getServletContext().getRequestDispatcher(pathToWebPage);
-            requestDispatcher.forward(request,response);
-        }catch (AuthorizationException ae){
+            requestDispatcher.forward(request, response);
+        } catch (AuthorizationException ae) {
             logger.error(ae);
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-        }catch (NumberFormatException ne){
+        } catch (NumberFormatException ne) {
             logger.error(ne);
             response.sendError(HttpServletResponse.SC_FORBIDDEN);
         }

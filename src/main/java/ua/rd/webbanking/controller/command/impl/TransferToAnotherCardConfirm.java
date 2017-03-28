@@ -31,7 +31,7 @@ public class TransferToAnotherCardConfirm extends Command {
     }
 
     @Override
-    public String execute(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    public String execute(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         String pathToJSP;
 
         checkCreditCardOwner(request);

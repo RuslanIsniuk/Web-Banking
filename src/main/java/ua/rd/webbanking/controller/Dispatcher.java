@@ -19,77 +19,79 @@ public class Dispatcher {
     private UnblockAccConfirm unblockAccConfirm = new UnblockAccConfirm();
     private DeleteAccConfirm deleteAccConfirm = new DeleteAccConfirm();
     private ClientsPaymentConfirm clientsPaymentConfirm = new ClientsPaymentConfirm();
-    private Dispatcher(){}
 
-    public String logicIdentificator(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
-        String pathToJSP ="";
+    private Dispatcher() {
+    }
+
+    public String logicIdentificator(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
+        String pathToJSP = "";
         String attributeStr = elementaryIdentification(request);
 
-        if(attributeStr == null){
+        if (attributeStr == null) {
             long cardID = Long.parseLong(request.getParameter("cardID"));
             String cardIDStr = CreditCard.cardNumberToString(cardID);
-            request.setAttribute("cardID",cardID);
-            request.setAttribute("cardIDStr",cardIDStr);
+            request.setAttribute("cardID", cardID);
+            request.setAttribute("cardIDStr", cardIDStr);
             request.setAttribute("errorMessage", "Error! Nothing chosen!");
             pathToJSP = request.getParameter("pageLocation");
-        }else{
+        } else {
 //            try{
-                switch (attributeStr) {
-                    case "CheckLoginData":
-                        pathToJSP = checkLoginInput.execute(request);
-                        break;
+            switch (attributeStr) {
+                case "CheckLoginData":
+                    pathToJSP = checkLoginInput.execute(request);
+                    break;
 
-                    case "returnToPerArea":
-                    case "returnToPerAdminAreaPage":
-                    case "openCardOperationMenu":
-                    case "openBlockAccPage":
-                    case "openCardTransactionPage":
-                    case "openCommPaymentPage":
-                    case "openMobilePaymentPage":
-                    case "openInternetPaymentPage":
-                    case "openTVPaymentPage":
-                    case "openTranToAnoCardPage":
-                    case "openAllClientsAccPage":
-                    case "openBlockedAccountsPage":
-                    case "openFormForCreatingNewAccPage":
-                    case "openUnblockAccPage":
-                    case "openDeleteAccPage":
-                    case "openClientDetailsPage":
-                    case "logOut":
-                        pathToJSP = openSimplePage.execute(request);
-                        break;
+                case "returnToPerArea":
+                case "returnToPerAdminAreaPage":
+                case "openCardOperationMenu":
+                case "openBlockAccPage":
+                case "openCardTransactionPage":
+                case "openCommPaymentPage":
+                case "openMobilePaymentPage":
+                case "openInternetPaymentPage":
+                case "openTVPaymentPage":
+                case "openTranToAnoCardPage":
+                case "openAllClientsAccPage":
+                case "openBlockedAccountsPage":
+                case "openFormForCreatingNewAccPage":
+                case "openUnblockAccPage":
+                case "openDeleteAccPage":
+                case "openClientDetailsPage":
+                case "logOut":
+                    pathToJSP = openSimplePage.execute(request);
+                    break;
 
-                    case "confirmBlockAccount":
-                        pathToJSP = blockAccConfirm.execute(request);
-                        break;
+                case "confirmBlockAccount":
+                    pathToJSP = blockAccConfirm.execute(request);
+                    break;
 
-                    case "communalPaymentConfirm":
-                    case "mobilePaymentConfirm":
-                    case "internetPaymentConfirm":
-                    case "tvPaymentConfirm":
-                        pathToJSP = clientsPaymentConfirm.execute(request);
-                        break;
+                case "communalPaymentConfirm":
+                case "mobilePaymentConfirm":
+                case "internetPaymentConfirm":
+                case "tvPaymentConfirm":
+                    pathToJSP = clientsPaymentConfirm.execute(request);
+                    break;
 
-                    case "transfToAnotherCardConfirm":
-                        pathToJSP = transferToAnotherCardConfirm.execute(request);
-                        break;
+                case "transfToAnotherCardConfirm":
+                    pathToJSP = transferToAnotherCardConfirm.execute(request);
+                    break;
 
-                    case "createNewClientConfirm":
-                        pathToJSP = createNewClientAcc.execute(request);
-                        break;
+                case "createNewClientConfirm":
+                    pathToJSP = createNewClientAcc.execute(request);
+                    break;
 
-                    case "unblockClientAccount":
-                        pathToJSP = unblockAccConfirm.execute(request);
-                        break;
+                case "unblockClientAccount":
+                    pathToJSP = unblockAccConfirm.execute(request);
+                    break;
 
-                    case "deleteClientAccount":
-                        pathToJSP = deleteAccConfirm.execute(request);
-                        break;
+                case "deleteClientAccount":
+                    pathToJSP = deleteAccConfirm.execute(request);
+                    break;
 
-                    default:
-                        logger.error("Error in dispatcher class!");
-                        break;
-                }
+                default:
+                    logger.error("Error in dispatcher class!");
+                    break;
+            }
 //            }catch (AuthorizationException se){
 //                logger.error(se);
 //                request.setAttribute("errorMessage", se.getMessage());
@@ -107,7 +109,7 @@ public class Dispatcher {
         return request.getParameter("actionType");
     }
 
-    public static Dispatcher getInstance(){
+    public static Dispatcher getInstance() {
         return Instance;
     }
 }

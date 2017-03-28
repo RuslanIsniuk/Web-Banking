@@ -7,11 +7,12 @@ import ua.rd.webbanking.model.exceptions.ServiceException;
 
 public class CheckLoginAndPass {
     private ClientDAO clientDAO = new JDBCClientDAO();
-    public CheckLoginAndPass(){
+
+    public CheckLoginAndPass() {
 //        default constructor
     }
 
-    public CheckLoginAndPass(ClientDAO clientDAO){
+    public CheckLoginAndPass(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
     }
 

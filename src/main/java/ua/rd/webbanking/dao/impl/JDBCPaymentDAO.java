@@ -95,9 +95,9 @@ public class JDBCPaymentDAO implements PaymentDAO {
             logger.error(e);
         }
 
-        if(paymentArrayList.size() == 0){
+        if (paymentArrayList.size() == 0) {
             return null;
-        }else{
+        } else {
             return paymentArrayList;
         }
     }

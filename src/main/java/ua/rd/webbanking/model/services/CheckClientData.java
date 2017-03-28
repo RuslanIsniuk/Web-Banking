@@ -12,29 +12,29 @@ public class CheckClientData {
     private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
     private ClientDAO clientDAO = new JDBCClientDAO();
 
-    public CheckClientData(){
+    public CheckClientData() {
 //        default constructor
     }
 
-    public CheckClientData(ClientDAO clientDAO){
+    public CheckClientData(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
     }
 
-    public boolean checkCreditCardID(long cardID, int clientID){
+    public boolean checkCreditCardID(long cardID, int clientID) {
         Account accountAuthentic = creditCardDAO.read(cardID).getCardAccount();
         return accountAuthentic.getAccountClient().getClientID() == clientID;
     }
 
-    public  boolean checkAdminFlag(int clientID)throws AuthorizationException{
+    public boolean checkAdminFlag(int clientID) throws AuthorizationException {
         Client client = clientDAO.read(clientID);
 
-        if(!(client instanceof Client)){
+        if (!(client instanceof Client)) {
             throw new AuthorizationException("Error! Check login or password!");
         }
 
-        if(client.isAdminFlag()){
+        if (client.isAdminFlag()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

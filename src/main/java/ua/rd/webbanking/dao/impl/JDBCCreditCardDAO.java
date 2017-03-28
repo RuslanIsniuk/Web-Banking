@@ -78,15 +78,15 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
             logger.error(e);
         }
 
-        if(creditCardArrayList.size() == 0){
+        if (creditCardArrayList.size() == 0) {
             return null;
-        }else{
+        } else {
             return creditCardArrayList;
         }
     }
 
     @Override
-    public List<CreditCard> readAll(){
+    public List<CreditCard> readAll() {
         ArrayList<CreditCard> creditCardArrayList = new ArrayList<>();
 
         try (Connection connection = connectionUtil.getConnection();
@@ -154,7 +154,7 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementUpdate)) {
 
-            preparedStatement.setInt(1,creditCard.getCardAccount().getAccountID());
+            preparedStatement.setInt(1, creditCard.getCardAccount().getAccountID());
             preparedStatement.setString(2, creditCard.getCardPIN());
             preparedStatement.setDate(3, creditCard.getCardValidDate());
             preparedStatement.setString(4, creditCard.getCardStatus());

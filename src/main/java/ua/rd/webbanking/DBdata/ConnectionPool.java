@@ -13,16 +13,16 @@ import java.util.Properties;
 /**
  * Created by Руслан on 25.12.2016.
  */
-public class ConnectionPool implements ConnectionUtil{
+public class ConnectionPool implements ConnectionUtil {
 
-    private static ConnectionPool Instance =new ConnectionPool();
+    private static ConnectionPool Instance = new ConnectionPool();
     private ComboPooledDataSource cpds;
     private String URL;
     private String USERNAME;
     private String PASSWORD;
     private String DriverClass;
 
-    private ConnectionPool(){
+    private ConnectionPool() {
         cpds = new ComboPooledDataSource();
         loadDBConfigurations();
 
@@ -36,10 +36,10 @@ public class ConnectionPool implements ConnectionUtil{
         }
     }
 
-    public void loadDBConfigurations(){
+    public void loadDBConfigurations() {
         Properties properties = new Properties();
 
-        try(InputStream inputStream = getClass().getClassLoader().getResourceAsStream("configDB.properties")){
+        try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("configDB.properties")) {
 
             properties.load(inputStream);
 
@@ -48,13 +48,13 @@ public class ConnectionPool implements ConnectionUtil{
             PASSWORD = properties.getProperty("databasePass");
             DriverClass = properties.getProperty("driverClass");
 
-        }catch (IOException ex){
+        } catch (IOException ex) {
             ex.getStackTrace();
         }
     }
 
     public static ConnectionPool getInstance() {
-            return Instance;
+        return Instance;
     }
 
     @Override

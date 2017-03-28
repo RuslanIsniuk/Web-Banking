@@ -18,7 +18,7 @@ public class GetClientsData {
     private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
     private AccountDAO accountDAO = new JDBCAccountDAO();
 
-    public Client getClient(int clientID){
+    public Client getClient(int clientID) {
         return clientDAO.read(clientID);
     }
 
@@ -26,32 +26,32 @@ public class GetClientsData {
         List<Account> accountList = accountDAO.readUsingClientID(client.getClientID());
         List<CreditCard> creditCardList = new ArrayList<>();
 
-        for(Account account : accountList){
+        for (Account account : accountList) {
             creditCardList.addAll(creditCardDAO.readUsingAccountID(account.getAccountID()));
         }
         return creditCardList;
     }
 
-    public List<String> getCreditCardsStr(Client client){
+    public List<String> getCreditCardsStr(Client client) {
         List<Account> accountList = accountDAO.readUsingClientID(client.getClientID());
         List<CreditCard> creditCardList = new ArrayList<>();
         List<String> creditCardStrList = new ArrayList<>();
 
-        for(Account account : accountList){
+        for (Account account : accountList) {
             creditCardList.addAll(creditCardDAO.readUsingAccountID(account.getAccountID()));
         }
 
-        for(CreditCard creditCard : creditCardList){
+        for (CreditCard creditCard : creditCardList) {
             creditCardStrList.add(CreditCard.cardNumberToString(creditCard.getCardID()));
         }
 
         return creditCardStrList;
     }
 
-    public List<String> getCreditCardsStr(List<CreditCard> creditCardList){
+    public List<String> getCreditCardsStr(List<CreditCard> creditCardList) {
         List<String> creditCardStrList = new ArrayList<>();
 
-        for(CreditCard creditCard : creditCardList){
+        for (CreditCard creditCard : creditCardList) {
             creditCardStrList.add(CreditCard.cardNumberToString(creditCard.getCardID()));
         }
         return creditCardStrList;
@@ -61,22 +61,22 @@ public class GetClientsData {
         return accountDAO.readUsingClientID(client.getClientID());
     }
 
-    public CreditCard getCreditCardInfo(long cardID){
+    public CreditCard getCreditCardInfo(long cardID) {
         return creditCardDAO.read(cardID);
     }
 
-    public List<Client> getClientsList(){
-        List <Client> finalClientList = new ArrayList<>();
-        List <Client> clientList = clientDAO.readAll();
-        for(Client clientFromList:clientList){
-            if(!(clientFromList.isAdminFlag())){
+    public List<Client> getClientsList() {
+        List<Client> finalClientList = new ArrayList<>();
+        List<Client> clientList = clientDAO.readAll();
+        for (Client clientFromList : clientList) {
+            if (!(clientFromList.isAdminFlag())) {
                 finalClientList.add(clientFromList);
             }
         }
         return finalClientList;
     }
 
-    public List<CreditCard> getAllCreditCards(){
+    public List<CreditCard> getAllCreditCards() {
         return creditCardDAO.readAll();
     }
 }

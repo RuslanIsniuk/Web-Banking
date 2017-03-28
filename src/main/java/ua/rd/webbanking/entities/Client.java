@@ -33,57 +33,60 @@ public class Client {
         return result;
     }
 
-    public void setClientID (int clientID){
+    public void setClientID(int clientID) {
         this.clientID = clientID;
     }
 
-    public void setClientFullName(String clientFullName){
+    public void setClientFullName(String clientFullName) {
         this.clientFullName = clientFullName;
     }
 
-    public void setClientLogin(String clientLogin){
+    public void setClientLogin(String clientLogin) {
         this.clientLogin = clientLogin;
     }
 
-    public void setClientPass(String clientPass){
+    public void setClientPass(String clientPass) {
         this.clientPass = clientPass;
     }
 
-    public void setAdminFlag(boolean adminFlag) { this.adminFlag = adminFlag; }
+    public void setAdminFlag(boolean adminFlag) {
+        this.adminFlag = adminFlag;
+    }
 
-    public void setAdminFlag(int adminFlagInt){
-        if(adminFlagInt == 0){
+    public void setAdminFlag(int adminFlagInt) {
+        if (adminFlagInt == 0) {
             adminFlag = false;
-        }
-        else{
+        } else {
             adminFlag = true;
         }
     }
 
-    public boolean isAdminFlag(){ return adminFlag;}
+    public boolean isAdminFlag() {
+        return adminFlag;
+    }
 
-    public int getAdminFlagInt(){
+    public int getAdminFlagInt() {
         int adminFlagInt = 0;
 
-        if(adminFlag){
+        if (adminFlag) {
             adminFlagInt = 1;
         }
         return adminFlagInt;
     }
 
-    public int getClientID(){
+    public int getClientID() {
         return clientID;
     }
 
-    public String getClientFullName(){
+    public String getClientFullName() {
         return clientFullName;
     }
 
-    public String getClientLogin(){
+    public String getClientLogin() {
         return clientLogin;
     }
 
-    public String getClientPass(){
+    public String getClientPass() {
         return clientPass;
     }
 

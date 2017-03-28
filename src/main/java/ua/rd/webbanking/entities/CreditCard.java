@@ -5,7 +5,7 @@ import java.text.ParseException;
 import java.sql.Date;
 import java.util.Locale;
 
-public class CreditCard{
+public class CreditCard {
     private long cardID;
     private String cardPIN;
     private String cardStatus;
@@ -37,20 +37,20 @@ public class CreditCard{
         return result;
     }
 
-    public void setCardID(long cardID){
+    public void setCardID(long cardID) {
         this.cardID = cardID;
     }
 
-    public void setCardStatus(String cardStatus){
+    public void setCardStatus(String cardStatus) {
         this.cardStatus = cardStatus;
     }
 
-    public void setCardValidDate(String cardValidDateString){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd",Locale.ENGLISH);
+    public void setCardValidDate(String cardValidDateString) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
 
             java.util.Date utilDate = formatter.parse(cardValidDateString);
-            java.sql.Date mySQLDate= new java.sql.Date(utilDate.getTime());
+            java.sql.Date mySQLDate = new java.sql.Date(utilDate.getTime());
 
             cardValidDate = mySQLDate;
         } catch (ParseException e) {
@@ -58,37 +58,41 @@ public class CreditCard{
         }
     }
 
-    public void setCardValidDate(Date cardValidDate){
+    public void setCardValidDate(Date cardValidDate) {
         this.cardValidDate = cardValidDate;
     }
 
-    public void setCardPIN (String cardPIN){ this.cardPIN = cardPIN; }
+    public void setCardPIN(String cardPIN) {
+        this.cardPIN = cardPIN;
+    }
 
-    public void setCardAccount (Account cardAccount){
+    public void setCardAccount(Account cardAccount) {
         this.cardAccount = cardAccount;
     }
 
 
-    public static String cardNumberToString(long cardID){
+    public static String cardNumberToString(long cardID) {
         String TempStr = Long.toString(cardID);
         return TempStr.substring(0, 4) + " " + TempStr.substring(4, 8) + " " + TempStr.substring(8, 12) + " " + TempStr.substring(12);
     }
 
-    public String getCardPIN(){return  cardPIN; }
+    public String getCardPIN() {
+        return cardPIN;
+    }
 
-    public long getCardID(){
+    public long getCardID() {
         return cardID;
     }
 
-    public String getCardStatus(){
+    public String getCardStatus() {
         return cardStatus;
     }
 
-    public Date getCardValidDate(){
+    public Date getCardValidDate() {
         return cardValidDate;
     }
 
-    public Account getCardAccount(){
+    public Account getCardAccount() {
         return cardAccount;
     }
 

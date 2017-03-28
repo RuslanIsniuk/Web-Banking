@@ -132,7 +132,7 @@ public class OpenSimplePage extends Command {
         return "/PersonalAdminArea.jsp";
     }
 
-    private String openUnblockAccPage(HttpServletRequest request) throws AuthorizationException{
+    private String openUnblockAccPage(HttpServletRequest request) throws AuthorizationException {
         Client client = getClientFromSession(request);
 
         if (!checkClientData.checkAdminFlag(client.getClientID())) {
@@ -143,14 +143,14 @@ public class OpenSimplePage extends Command {
         CreditCard creditCard = getClientsData.getCreditCardInfo(cardID);
         String clientFullName = request.getParameter("clientFullName");
 
-        request.setAttribute("cardID",creditCard.getCardID());
-        request.setAttribute("cardIDStr",CreditCard.cardNumberToString(cardID));
-        request.setAttribute("accountID",creditCard.getCardAccount().getAccountID());
-        request.setAttribute("clientFullName",clientFullName);
+        request.setAttribute("cardID", creditCard.getCardID());
+        request.setAttribute("cardIDStr", CreditCard.cardNumberToString(cardID));
+        request.setAttribute("accountID", creditCard.getCardAccount().getAccountID());
+        request.setAttribute("clientFullName", clientFullName);
         return "/adminPages/UnblockAccPage.jsp";
     }
 
-    private String openDeleteAccPage(HttpServletRequest request)throws AuthorizationException{
+    private String openDeleteAccPage(HttpServletRequest request) throws AuthorizationException {
         Client adminClient = getClientFromSession(request);
         String clientFullName = request.getParameter("clientFullName");
         int clientID = Integer.parseInt(request.getParameter("clientID"));
@@ -159,12 +159,12 @@ public class OpenSimplePage extends Command {
             throw new AuthorizationException();
         }
 
-        request.setAttribute("clientFullName",clientFullName);
-        request.setAttribute("clientID",clientID);
+        request.setAttribute("clientFullName", clientFullName);
+        request.setAttribute("clientID", clientID);
         return "/adminPages/DeleteAccPage.jsp";
     }
 
-    private String openClientDetailsPage(HttpServletRequest request) throws AuthorizationException{
+    private String openClientDetailsPage(HttpServletRequest request) throws AuthorizationException {
         Client clientAdmin = getClientFromSession(request);
 
         if (!checkClientData.checkAdminFlag(clientAdmin.getClientID())) {
@@ -173,14 +173,14 @@ public class OpenSimplePage extends Command {
 
         int clientID = Integer.parseInt(request.getParameter("clientID"));
         Client client = getClientsData.getClient(clientID);
-        request.setAttribute("accountList",getClientsData.getAccounts(client));
-        request.setAttribute("cardList",getClientsData.getCreditCards(client));
-        request.setAttribute("cardListStr",getClientsData.getCreditCardsStr(client));
-        request.setAttribute("client",client);
+        request.setAttribute("accountList", getClientsData.getAccounts(client));
+        request.setAttribute("cardList", getClientsData.getCreditCards(client));
+        request.setAttribute("cardListStr", getClientsData.getCreditCardsStr(client));
+        request.setAttribute("client", client);
         return "/adminPages/ClientDetailsPage.jsp";
     }
 
-    private String openCardOperationMenu(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openCardOperationMenu(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -190,7 +190,7 @@ public class OpenSimplePage extends Command {
         return "/CardOperationPage.jsp";
     }
 
-    private String openBlockAccPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openBlockAccPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -202,7 +202,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/BlockAccount.jsp";
     }
 
-    private String openCardTransactionPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openCardTransactionPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -212,7 +212,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/CardTransaction.jsp";
     }
 
-    private String openCommPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openCommPaymentPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -222,7 +222,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/CommunalPayment.jsp";
     }
 
-    private String openMobilePaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openMobilePaymentPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -232,7 +232,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/MobilePayment.jsp";
     }
 
-    private String openInternetPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
+    private String openInternetPaymentPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -242,7 +242,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/InternetPayment.jsp";
     }
 
-    private String openTVPaymentPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException{
+    private String openTVPaymentPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -252,7 +252,7 @@ public class OpenSimplePage extends Command {
         return "/clientPages/TVPayment.jsp";
     }
 
-    private String openTranToAnoCardPage(HttpServletRequest request) throws AuthorizationException,NumberFormatException {
+    private String openTranToAnoCardPage(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         checkCreditCardOwner(request);
         long cardID = getCreditCardIDFromRequest(request);
         String cardIDStr = CreditCard.cardNumberToString(cardID);
@@ -302,11 +302,11 @@ public class OpenSimplePage extends Command {
         return "/adminPages/CreateNewClientPage.jsp";
     }
 
-    private String logOut(HttpServletRequest request) throws AuthorizationException{
-        if(request.getSession() instanceof HttpSession){
+    private String logOut(HttpServletRequest request) throws AuthorizationException {
+        if (request.getSession() instanceof HttpSession) {
             request.getSession(false).invalidate();
             HttpSession session = request.getSession(false);
-            if(session!=null){
+            if (session != null) {
                 throw new AuthorizationException("Error! Session not closed!");
             }
         }

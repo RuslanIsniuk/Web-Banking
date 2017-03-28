@@ -48,7 +48,7 @@ public class JDBCAccountDAO implements AccountDAO {
 
     Account parseResultSet(ResultSet resultSet) throws SQLException {
         Account account = new Account();
-        
+
         account.setAccountID(resultSet.getInt("account_id"));
         account.setAccountBalance(resultSet.getBigDecimal("balance"));
         account.setAccountStatus(resultSet.getString("status"));
@@ -70,7 +70,7 @@ public class JDBCAccountDAO implements AccountDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-               account= parseResultSet(resultSet);
+                account = parseResultSet(resultSet);
             }
             resultSet.close();
             logger.debug("Read account data successfully.");
@@ -101,15 +101,15 @@ public class JDBCAccountDAO implements AccountDAO {
             logger.error(e);
         }
 
-        if(accountArrayList.size() == 0){
+        if (accountArrayList.size() == 0) {
             return null;
-        }else{
+        } else {
             return accountArrayList;
         }
     }
 
     @Override
-    public List<Account> readAll(){
+    public List<Account> readAll() {
         ArrayList<Account> accountArrayList = new ArrayList<>();
 
         try (Connection connection = connectionUtil.getConnection();
@@ -143,9 +143,9 @@ public class JDBCAccountDAO implements AccountDAO {
             preparedStatement.executeUpdate();
             logger.debug("Create account data successfully.");
 
-            if(isBalancePositive(account.getAccountID())){
+            if (isBalancePositive(account.getAccountID())) {
                 connection.commit();
-            }else{
+            } else {
                 connection.rollback();
             }
         } catch (SQLException e) {
@@ -159,7 +159,7 @@ public class JDBCAccountDAO implements AccountDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementUpdate)) {
 
             connection.setAutoCommit(false);
-            preparedStatement.setInt(1,  account.getAccountClient().getClientID());
+            preparedStatement.setInt(1, account.getAccountClient().getClientID());
             preparedStatement.setBigDecimal(2, account.getAccountBalance());
             preparedStatement.setString(3, account.getAccountStatus());
             preparedStatement.setDate(4, account.getAccountDateOpen());
@@ -167,9 +167,9 @@ public class JDBCAccountDAO implements AccountDAO {
             preparedStatement.executeUpdate();
             logger.debug("Update account data successfully.");
 
-            if(isBalancePositive(account.getAccountID())){
+            if (isBalancePositive(account.getAccountID())) {
                 connection.commit();
-            }else{
+            } else {
                 connection.rollback();
             }
         } catch (SQLException e) {
@@ -192,12 +192,12 @@ public class JDBCAccountDAO implements AccountDAO {
         }
     }
 
-    private boolean isBalancePositive(int accountID){
+    private boolean isBalancePositive(int accountID) {
         Account account = read(accountID);
 
-        if(account.getAccountBalance().compareTo(new BigDecimal("0"))<0){
+        if (account.getAccountBalance().compareTo(new BigDecimal("0")) < 0) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }

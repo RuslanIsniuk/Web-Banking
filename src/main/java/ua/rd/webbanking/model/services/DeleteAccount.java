@@ -17,20 +17,20 @@ public class DeleteAccount {
     private AccountDAO accountDAO = new JDBCAccountDAO();
     private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
 
-    public void deleteConfirm(int clientID){
+    public void deleteConfirm(int clientID) {
         List<Account> accountList = accountDAO.readUsingClientID(clientID);
         List<CreditCard> creditCardList = new ArrayList<>();
 
-        for(Account account:accountList){
+        for (Account account : accountList) {
             List<CreditCard> creditCardsFromCurrentAccount = creditCardDAO.readUsingAccountID(account.getAccountID());
             creditCardList.addAll(creditCardsFromCurrentAccount);
         }
 
-        for(CreditCard creditCard:creditCardList){
+        for (CreditCard creditCard : creditCardList) {
             creditCardDAO.delete(creditCard.getCardID());
         }
 
-        for(Account account: accountList){
+        for (Account account : accountList) {
             accountDAO.delete(account.getAccountID());
         }
 

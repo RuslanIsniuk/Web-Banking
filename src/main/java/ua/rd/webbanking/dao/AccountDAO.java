@@ -9,9 +9,14 @@ import java.util.List;
  */
 public interface AccountDAO {
     Account read(int accountID);
+
     List<Account> readUsingClientID(int clientID);
+
     List<Account> readAll();
+
     void insert(Account account);
+
     void update(Account account);
+
     void delete(int accountID);
 }
