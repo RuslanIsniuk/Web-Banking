@@ -8,6 +8,7 @@ import ua.rd.webbanking.entities.Account;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -132,6 +133,7 @@ public class JDBCAccountDAO implements AccountDAO {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementCreate)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setInt(1, account.getAccountClient().getClientID());
             preparedStatement.setInt(2, account.getAccountID());
             preparedStatement.setBigDecimal(3, account.getAccountBalance());
@@ -140,6 +142,12 @@ public class JDBCAccountDAO implements AccountDAO {
 
             preparedStatement.executeUpdate();
             logger.debug("Create account data successfully.");
+
+            if(isBalancePositive(account.getAccountID())){
+                connection.commit();
+            }else{
+                connection.rollback();
+            }
         } catch (SQLException e) {
             logger.error(e);
         }
@@ -150,6 +158,7 @@ public class JDBCAccountDAO implements AccountDAO {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementUpdate)) {
 
+            connection.setAutoCommit(false);
             preparedStatement.setInt(1,  account.getAccountClient().getClientID());
             preparedStatement.setBigDecimal(2, account.getAccountBalance());
             preparedStatement.setString(3, account.getAccountStatus());
@@ -157,6 +166,12 @@ public class JDBCAccountDAO implements AccountDAO {
             preparedStatement.setInt(5, account.getAccountID());
             preparedStatement.executeUpdate();
             logger.debug("Update account data successfully.");
+
+            if(isBalancePositive(account.getAccountID())){
+                connection.commit();
+            }else{
+                connection.rollback();
+            }
         } catch (SQLException e) {
             logger.error(e);
         }
@@ -174,6 +189,16 @@ public class JDBCAccountDAO implements AccountDAO {
             logger.debug("Delete account data successfully.");
         } catch (SQLException e) {
             logger.error(e);
+        }
+    }
+
+    private boolean isBalancePositive(int accountID){
+        Account account = read(accountID);
+
+        if(account.getAccountBalance().compareTo(new BigDecimal("0"))<0){
+            return false;
+        }else{
+            return true;
         }
     }
 }
