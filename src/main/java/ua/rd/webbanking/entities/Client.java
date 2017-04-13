@@ -1,11 +1,30 @@
 package ua.rd.webbanking.entities;
 
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+
+@Entity
+@Table(name = "clients")
 public class Client {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "client_id", unique = true, nullable = false)
     private int clientID;
+    @Column(name = "client_full_name", nullable = false, length = 45)
     private String clientFullName;
+    @Column(name = "client_login", nullable = false, length = 25)
     private String clientLogin;
+    @Column(name = "client_password", nullable = false, length = 25)
     private String clientPass;
+    @Column(name = "admin_flag")
     private boolean adminFlag;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountClient")
+    private Set<Account> accountSet = null;
 
 
     @Override
@@ -31,6 +50,10 @@ public class Client {
         result = 31 * result + (clientPass != null ? clientPass.hashCode() : 0);
         result = 31 * result + (adminFlag ? 1 : 0);
         return result;
+    }
+
+    public void setAccountSet(Set<Account> accountSet) {
+        this.accountSet = accountSet;
     }
 
     public void setClientID(int clientID) {
@@ -65,7 +88,8 @@ public class Client {
         return adminFlag;
     }
 
-    public int getAdminFlagInt() {
+
+    public int getAdminFlag() {
         int adminFlagInt = 0;
 
         if (adminFlag) {
@@ -73,6 +97,7 @@ public class Client {
         }
         return adminFlagInt;
     }
+
 
     public int getClientID() {
         return clientID;
@@ -90,4 +115,7 @@ public class Client {
         return clientPass;
     }
 
+    public Set<Account> getAccountSet() {
+        return accountSet;
+    }
 }

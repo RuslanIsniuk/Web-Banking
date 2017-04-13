@@ -1,17 +1,37 @@
 package ua.rd.webbanking.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Set;
 
+@Entity
+@Table(name = "accounts")
 public class Account {
+    @Id
+    @Column(name = "account_id", unique = true, nullable = false)
     private int accountID;
+    @Column(name = "balance", unique = true, nullable = false)
     private BigDecimal accountBalance;
+    @Column(name = "status", unique = true, nullable = false, length = 20)
     private String accountStatus;
+    @Column(name = "data_open", unique = true, nullable = false)
     private java.sql.Date accountDateOpen;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "client_id", nullable = false)
     private Client accountClient;
+//    private Set<CreditCard> creditCardSet = null;
+//    public Set<CreditCard> getCreditCardSet() {
+//        return creditCardSet;
+//    }
+
+//    public void setCreditCardSet(Set<CreditCard> creditCardSet) {
+//        this.creditCardSet = creditCardSet;
+//    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -72,7 +92,6 @@ public class Account {
             e.printStackTrace();
         }
     }
-
 
     public int getAccountID() {
         return accountID;
