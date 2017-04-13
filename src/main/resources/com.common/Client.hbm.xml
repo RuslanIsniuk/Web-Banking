@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ua.rd.webbanking.entities.Client" table="clients" catalog="mysqlbankdemo">
+        <id name="clientID" type="java.lang.Integer">
+            <column name="client_id" not-null="true"/>
+            <generator class="identity"/>
+        </id>
+
+        <property name="clientFullName" type="string">
+            <column name="client_full_name" length="45" not-null="true"/>
+        </property>
+
+        <property name="clientLogin" type="string">
+            <column name="client_login" length="25" not-null="true"/>
+        </property>
+
+        <property name="clientPass" type="string">
+            <column name="client_password" length="25" not-null="true"/>
+        </property>
+
+        <property name="adminFlag" type="boolean">
+            <column name="admin_Flag" not-null="true"/>
+        </property>
+
+        <set name="accountSet" table="accounts" fetch="select">
+            <key>
+                <column name="client_id" not-null="true"></column>
+            </key>
+            <one-to-many class="ua.rd.webbanking.entities.Account"/>
+        </set>
+    </class>
+</hibernate-mapping>

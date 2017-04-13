@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ua.rd.webbanking.entities.Account" table="accounts" catalog="testmysqlbankdemo">
+        <id name="accountID" type="java.lang.Integer">
+            <column name="account_id" not-null="true"/>
+            <generator class="identity"/>
+        </id>
+
+        <many-to-one name="accountClient" class="ua.rd.webbanking.entities.Client" fetch="select">
+            <column name="client_id" not-null="true" />
+        </many-to-one>
+
+        <property name="accountBalance" type="java.math.BigDecimal">
+            <column name="balance"/>
+        </property>
+
+        <property name="accountStatus" type="string">
+            <column name="status" length="20" not-null="true"/>
+        </property>
+
+        <property name="accountDateOpen" type="date">
+            <column name="data_open" not-null="true"/>
+        </property>
+
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="ua.rd.webbanking.entities.CreditCard" table="cards" catalog="mkyong">
+        <id name="cardID" type="java.lang.Long">
+            <column name="card_id" not-null="true"/>
+            <generator class="identity"/>
+        </id>
+
+        <many-to-one name="cardAccount" class="ua.rd.webbanking.entities.Account" fetch="select">
+            <column name="account_id" not-null="true"/>
+        </many-to-one>
+
+        <property name="cardPIN" type="java.lang.String">
+            <column name="card_pin" length="10" not-null="true"/>
+        </property>
+
+        <property name="cardStatus" type="string">
+            <column name="card_status" length="10" not-null="true"/>
+        </property>
+
+        <property name="cardValidDate" type="date">
+            <column name="card_valid_data" not-null="true"/>
+        </property>
+
+        <set name="paymentSet" table="payments" fetch="select">
+            <key>
+                <column name="card_id" not-null="true"></column>
+            </key>
+            <one-to-many class="ua.rd.webbanking.entities.Payment"/>
+        </set>
+    </class>
+</hibernate-mapping>
