@@ -23,5 +23,7 @@
 
         <mapping class="ua.rd.webbanking.entities.Client"/>
         <mapping class="ua.rd.webbanking.entities.Account"/>
+        <mapping class="ua.rd.webbanking.entities.CreditCard"/>
+        <mapping class="ua.rd.webbanking.entities.Payment"/>
     </session-factory>
 </hibernate-configuration>
