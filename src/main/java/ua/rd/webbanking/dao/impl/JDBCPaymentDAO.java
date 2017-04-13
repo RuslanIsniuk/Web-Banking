@@ -109,7 +109,7 @@ public class JDBCPaymentDAO implements PaymentDAO {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementCreate, Statement.RETURN_GENERATED_KEYS)) {
 
-            preparedStatement.setLong(1, payment.getPaymentCrediCard().getCardID());
+            preparedStatement.setLong(1, payment.getPaymentCreditCard().getCardID());
             preparedStatement.setString(2, payment.getPaymentDestination());
             preparedStatement.setDate(3, payment.getPaymentDate());
             preparedStatement.setBigDecimal(4, payment.getPaymentAmount());
@@ -133,7 +133,7 @@ public class JDBCPaymentDAO implements PaymentDAO {
         try (Connection connection = connectionUtil.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(SQLStatementUpdate)) {
 
-            preparedStatement.setLong(1, payment.getPaymentCrediCard().getCardID());
+            preparedStatement.setLong(1, payment.getPaymentCreditCard().getCardID());
             preparedStatement.setString(2, payment.getPaymentDestination());
             preparedStatement.setDate(3, payment.getPaymentDate());
             preparedStatement.setBigDecimal(4, payment.getPaymentAmount());

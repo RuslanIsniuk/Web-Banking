@@ -112,7 +112,7 @@ public class JDBCClientDAO implements ClientDAO {
             preparedStatement.setString(1, client.getClientLogin());
             preparedStatement.setString(2, client.getClientPass());
             preparedStatement.setString(3, client.getClientFullName());
-            preparedStatement.setInt(4, client.getAdminFlagInt());
+            preparedStatement.setInt(4, client.getAdminFlag());
 
             preparedStatement.executeUpdate();
 
@@ -138,7 +138,7 @@ public class JDBCClientDAO implements ClientDAO {
             preparedStatement.setString(1, client.getClientLogin());
             preparedStatement.setString(2, client.getClientPass());
             preparedStatement.setString(3, client.getClientFullName());
-            preparedStatement.setInt(4, client.getAdminFlagInt());
+            preparedStatement.setInt(4, client.getAdminFlag());
             preparedStatement.setInt(5, client.getClientID());
 
             preparedStatement.executeUpdate();
@@ -163,7 +163,7 @@ public class JDBCClientDAO implements ClientDAO {
     }
 
     @Override
-    public Client read(String clientLogin, String clientPass) {
+    public Client readByLogin(String clientLogin, String clientPass) {
         Client client = null;
 
         try (Connection connection = connectionUtil.getConnection();
