@@ -23,8 +23,8 @@ public class CheckLoginAndPassTest {
     @Before
     public void setUp(){
         checkLoginAndPass = new CheckLoginAndPass(clientDAO);
-        when(clientDAO.read("clientLogin","clientPass")).thenReturn(client);
-        when(clientDAO.read("exception","exception")).thenReturn(null);
+        when(clientDAO.readByLogin("clientLogin","clientPass")).thenReturn(client);
+        when(clientDAO.readByLogin("exception","exception")).thenReturn(null);
     }
 
     @Test

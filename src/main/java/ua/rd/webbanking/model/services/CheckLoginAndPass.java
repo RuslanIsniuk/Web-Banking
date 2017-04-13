@@ -17,7 +17,7 @@ public class CheckLoginAndPass {
     }
 
     public Client validateLoginData(String userLogin, String userPass) throws ServiceException {
-        Client client = clientDAO.read(userLogin, userPass);
+        Client client = clientDAO.readByLogin(userLogin, userPass);
 
         if (!(client instanceof Client)) {
             throw new ServiceException("Error! Check login or password!");
