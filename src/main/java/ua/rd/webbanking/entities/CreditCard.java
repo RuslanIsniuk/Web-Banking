@@ -1,16 +1,30 @@
 package ua.rd.webbanking.entities;
 
+import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 import java.sql.Date;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
+@Entity
+@Table(name = "cards")
 public class CreditCard {
+    @Id
+    @Column(name = "card_id", unique = true, nullable = false)
     private long cardID;
+    @Column(name = "card_pin", nullable = false, length = 6)
     private String cardPIN;
+    @Column(name = "card_status", nullable = false, length = 10)
     private String cardStatus;
+    @Column(name = "card_valid_data", nullable = false)
     private java.sql.Date cardValidDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "account_id", nullable = false)
     private Account cardAccount;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "paymentCreditCard")
+    private Set<Payment> paymentSet = new HashSet<Payment>();
 
     @Override
     public boolean equals(Object o) {
@@ -35,6 +49,15 @@ public class CreditCard {
         result = 31 * result + (cardValidDate != null ? cardValidDate.hashCode() : 0);
         result = 31 * result + (cardAccount != null ? cardAccount.hashCode() : 0);
         return result;
+    }
+
+
+    public Set<Payment> getPaymentSet() {
+        return paymentSet;
+    }
+
+    public void setPaymentSet(Set<Payment> paymentSet) {
+        this.paymentSet = paymentSet;
     }
 
     public void setCardID(long cardID) {

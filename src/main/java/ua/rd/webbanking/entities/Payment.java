@@ -1,17 +1,30 @@
 package ua.rd.webbanking.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Table(name = "payments")
 public class Payment {
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "payments_id", unique = true, nullable = false)
     private int paymentID;
-    private CreditCard paymentCreditCard;
+    @Column(name = "payments_type", nullable = false, length = 45)
     private String paymentDestination;
+    @Column(name = "payments_date", nullable = false)
     private java.sql.Date paymentDate;
+    @Column(name = "payments_amount", nullable = false)
     private BigDecimal paymentAmount;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "card_id", nullable = false)
+    private CreditCard paymentCreditCard;
 
     public Payment() {
     }
@@ -81,8 +94,8 @@ public class Payment {
         this.paymentAmount = paymentAmount;
     }
 
-    public void setPaymentCreditCard(CreditCard paymentCrediCard) {
-        this.paymentCreditCard = paymentCrediCard;
+    public void setPaymentCreditCard(CreditCard paymentCreditCard) {
+        this.paymentCreditCard = paymentCreditCard;
     }
 
     public int getPaymentID() {
@@ -101,7 +114,7 @@ public class Payment {
         return paymentAmount;
     }
 
-    public CreditCard getPaymentCrediCard() {
+    public CreditCard getPaymentCreditCard() {
         return paymentCreditCard;
     }
 

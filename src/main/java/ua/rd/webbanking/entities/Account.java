@@ -23,14 +23,16 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private Client accountClient;
-//    private Set<CreditCard> creditCardSet = null;
-//    public Set<CreditCard> getCreditCardSet() {
-//        return creditCardSet;
-//    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardAccount")
+    private Set<CreditCard> creditCardSet = null;
 
-//    public void setCreditCardSet(Set<CreditCard> creditCardSet) {
-//        this.creditCardSet = creditCardSet;
-//    }
+    public Set<CreditCard> getCreditCardSet() {
+        return creditCardSet;
+    }
+
+    public void setCreditCardSet(Set<CreditCard> creditCardSet) {
+        this.creditCardSet = creditCardSet;
+    }
 
 
     @Override
