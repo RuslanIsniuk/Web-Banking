@@ -12,7 +12,7 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     <!--JDBC beans-->
     <bean id="JDBCClientDAO" class="ua.rd.webbanking.dao.impl.JDBCClientDAO"/>
     <bean id="JDBCAccountDAO" class="ua.rd.webbanking.dao.impl.JDBCAccountDAO"/>
-    <bean id="JDBCCrediCardDAO" class="ua.rd.webbanking.dao.impl.JDBCCreditCardDAO"/>
+    <bean id="JDBCCreditCardDAO" class="ua.rd.webbanking.dao.impl.JDBCCreditCardDAO"/>
     <bean id="JDBCPaymentDAO" class="ua.rd.webbanking.dao.impl.JDBCPaymentDAO"/>
 
     <!--Hibernate beans-->
@@ -41,4 +41,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
     <bean id="OpenSimplePage" class="ua.rd.webbanking.controller.command.impl.OpenSimplePage"/>
     <bean id="TransferToAnotherCardConfirm" class="ua.rd.webbanking.controller.command.impl.TransferToAnotherCardConfirm"/>
     <bean id="UnblockAccConfirm" class="ua.rd.webbanking.controller.command.impl.UnblockAccConfirm"/>
+
+    <bean id="Dispatcher" class="ua.rd.webbanking.controller.Dispatcher"/>
+
+    <!--Servlet-->
+    <bean id="Servlet" class="ua.rd.webbanking.servlets.Servlet"/>
 </beans>

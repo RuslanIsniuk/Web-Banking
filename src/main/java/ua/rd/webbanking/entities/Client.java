@@ -23,7 +23,7 @@ public class Client {
     private String clientPass;
     @Column(name = "admin_flag")
     private boolean adminFlag;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountClient")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "accountClient")
     private Set<Account> accountSet = null;
 
 

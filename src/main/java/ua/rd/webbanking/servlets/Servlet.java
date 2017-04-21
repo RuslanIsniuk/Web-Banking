@@ -1,5 +1,6 @@
 package ua.rd.webbanking.servlets;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ua.rd.webbanking.controller.Dispatcher;
 import org.apache.log4j.Logger;
@@ -16,7 +17,8 @@ import java.io.IOException;
 
 @WebServlet("/Servlet")
 public class Servlet extends HttpServlet {
-    private Dispatcher dispatcher = Dispatcher.getInstance();
+    @Autowired
+    private Dispatcher dispatcher;
     private static final Logger logger = Logger.getLogger(Servlet.class);
 
     @Override

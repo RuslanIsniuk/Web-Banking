@@ -9,7 +9,7 @@ import ua.rd.webbanking.model.exceptions.ServiceException;
 
 public class CheckLoginAndPass {
     @Autowired
-    @Qualifier("HibernateClientDAO")
+    @Qualifier("JDBCClientDAO")
     private ClientDAO clientDAO;
 
     public CheckLoginAndPass() {

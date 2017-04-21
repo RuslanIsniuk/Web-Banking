@@ -1,6 +1,7 @@
 package ua.rd.webbanking.controller;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.impl.*;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
@@ -8,20 +9,24 @@ import ua.rd.webbanking.entities.CreditCard;
 import javax.servlet.http.HttpServletRequest;
 
 public class Dispatcher {
-    private static final Dispatcher Instance = new Dispatcher();
     private static final Logger logger = Logger.getLogger(Dispatcher.class);
 
-    private CheckLoginInput checkLoginInput = new CheckLoginInput();
-    private BlockAccConfirm blockAccConfirm = new BlockAccConfirm();
-    private OpenSimplePage openSimplePage = new OpenSimplePage();
-    private TransferToAnotherCardConfirm transferToAnotherCardConfirm = new TransferToAnotherCardConfirm();
-    private CreateNewClientAcc createNewClientAcc = new CreateNewClientAcc();
-    private UnblockAccConfirm unblockAccConfirm = new UnblockAccConfirm();
-    private DeleteAccConfirm deleteAccConfirm = new DeleteAccConfirm();
-    private ClientsPaymentConfirm clientsPaymentConfirm = new ClientsPaymentConfirm();
-
-    private Dispatcher() {
-    }
+    @Autowired
+    private CheckLoginInput checkLoginInput;
+    @Autowired
+    private BlockAccConfirm blockAccConfirm;
+    @Autowired
+    private OpenSimplePage openSimplePage;
+    @Autowired
+    private TransferToAnotherCardConfirm transferToAnotherCardConfirm;
+    @Autowired
+    private CreateNewClientAcc createNewClientAcc;
+    @Autowired
+    private UnblockAccConfirm unblockAccConfirm;
+    @Autowired
+    private DeleteAccConfirm deleteAccConfirm;
+    @Autowired
+    private ClientsPaymentConfirm clientsPaymentConfirm;
 
     public String logicIdentificator(HttpServletRequest request) throws AuthorizationException, NumberFormatException {
         String pathToJSP = "";
@@ -109,7 +114,4 @@ public class Dispatcher {
         return request.getParameter("actionType");
     }
 
-    public static Dispatcher getInstance() {
-        return Instance;
-    }
 }

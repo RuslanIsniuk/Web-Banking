@@ -20,10 +20,10 @@ public class CreditCard {
     private String cardStatus;
     @Column(name = "card_valid_data", nullable = false)
     private java.sql.Date cardValidDate;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id", nullable = false)
     private Account cardAccount;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "paymentCreditCard")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "paymentCreditCard")
     private Set<Payment> paymentSet = new HashSet<Payment>();
 
     @Override

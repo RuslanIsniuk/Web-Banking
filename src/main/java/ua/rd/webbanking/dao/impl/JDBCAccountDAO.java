@@ -1,5 +1,7 @@
 package ua.rd.webbanking.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.DBdata.ConnectionPool;
 import ua.rd.webbanking.DBdata.ConnectionUtil;
@@ -24,7 +26,9 @@ public class JDBCAccountDAO implements AccountDAO {
     private String SQLStatementCreate;
     private String SQLStatementReadAll;
     private String SQLStatementReadUsingClientID;
-    private ClientDAO clientDAO = new JDBCClientDAO();
+    @Autowired
+    @Qualifier("JDBCClientDAO")
+    private ClientDAO clientDAO;
     private ConnectionUtil connectionUtil = ConnectionPool.getInstance();
 
     public JDBCAccountDAO() {

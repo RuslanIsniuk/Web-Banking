@@ -22,7 +22,7 @@ public class Payment {
     private java.sql.Date paymentDate;
     @Column(name = "payments_amount", nullable = false)
     private BigDecimal paymentAmount;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "card_id", nullable = false)
     private CreditCard paymentCreditCard;
 

@@ -1,5 +1,7 @@
 package ua.rd.webbanking.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
@@ -25,7 +27,9 @@ public class JDBCCreditCardDAO implements CreditCardDAO {
     private String SQLStatementUpdate;
     private String SQLStatementReadAll;
     private String SQLStatementReadAllUsingAccID;
-    private AccountDAO accountDAO = new JDBCAccountDAO();
+    @Autowired
+    @Qualifier("JDBCAccountDAO")
+    private AccountDAO accountDAO;
     private ConnectionUtil connectionUtil = ConnectionPool.getInstance();
 
     public JDBCCreditCardDAO() {

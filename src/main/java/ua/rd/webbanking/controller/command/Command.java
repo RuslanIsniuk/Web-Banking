@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Client;
 import ua.rd.webbanking.model.services.CheckClientData;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 public abstract class Command {
     private static final Logger logger = Logger.getLogger(Command.class);
-    protected CheckClientData checkClientData = new CheckClientData();
+    @Autowired
+    protected CheckClientData checkClientData;
 
     public abstract String execute(HttpServletRequest request) throws AuthorizationException;
 

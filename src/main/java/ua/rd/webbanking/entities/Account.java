@@ -20,10 +20,10 @@ public class Account {
     private String accountStatus;
     @Column(name = "data_open", unique = true, nullable = false)
     private java.sql.Date accountDateOpen;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client_id", nullable = false)
     private Client accountClient;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cardAccount")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cardAccount")
     private Set<CreditCard> creditCardSet = null;
 
     public Set<CreditCard> getCreditCardSet() {
