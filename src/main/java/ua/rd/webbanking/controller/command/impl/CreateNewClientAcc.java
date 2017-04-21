@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.controller.exceptions.InvalidAccountDataInputException;
@@ -23,7 +24,8 @@ import java.util.regex.Pattern;
 public class CreateNewClientAcc extends Command {
     private static final Logger logger = Logger.getLogger(CreateNewClientAcc.class);
 
-    private CreateNewClientPerArea createNewClientPerArea = new CreateNewClientPerArea();
+    @Autowired
+    private CreateNewClientPerArea createNewClientPerArea;
 
     private static final String LOGIN_OR_PASS_FIELD = "\\w{3,25}";
     private static final String FULL_NAME_FIELD = "(\\w{3,20}\\s{1,5}\\w{3,20})||(\\w{3,12}\\s{1,2}\\w{3,12}\\s{1,2}\\w{3,12})";

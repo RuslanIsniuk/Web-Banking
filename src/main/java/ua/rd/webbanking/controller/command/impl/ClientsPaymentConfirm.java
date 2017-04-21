@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
@@ -24,7 +25,8 @@ public class ClientsPaymentConfirm extends Command {
     private static final String INTERNET_NUM_FIELD = "\\d{10}";
     private static final String TV_NUM_FIELD = "\\d{10}";
 
-    private PaymentConfirm paymentConfirm = new PaymentConfirm();
+    @Autowired
+    private PaymentConfirm paymentConfirm;
     private PaymentType paymentType;
 
     public ClientsPaymentConfirm() {

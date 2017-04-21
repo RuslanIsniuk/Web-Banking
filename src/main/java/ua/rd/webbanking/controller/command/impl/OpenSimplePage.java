@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Account;
@@ -14,8 +15,10 @@ import java.util.List;
 
 public class OpenSimplePage extends Command {
     private String pathToJSP;
-    private GetClientsData getClientsData = new GetClientsData();
-    private GetBlockedAccountsData getBlockedAccountsData = new GetBlockedAccountsData();
+    @Autowired
+    private GetClientsData getClientsData;
+    @Autowired
+    private GetBlockedAccountsData getBlockedAccountsData;
 
     @Override
     public String execute(HttpServletRequest request) throws AuthorizationException {

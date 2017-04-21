@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Client;
@@ -9,7 +10,8 @@ import ua.rd.webbanking.model.services.DeleteAccount;
 import javax.servlet.http.HttpServletRequest;
 
 public class DeleteAccConfirm extends Command {
-    private DeleteAccount deleteAccount = new DeleteAccount();
+    @Autowired
+    private DeleteAccount deleteAccount;
 
     public DeleteAccConfirm() {
 //        default constructor

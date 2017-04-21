@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Client;
@@ -10,7 +11,8 @@ import ua.rd.webbanking.model.services.UnblockAccount;
 import javax.servlet.http.HttpServletRequest;
 
 public class UnblockAccConfirm extends Command {
-    private UnblockAccount unblockAccount = new UnblockAccount();
+    @Autowired
+    private UnblockAccount unblockAccount;
 
     public UnblockAccConfirm() {
 //        default constructor

@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
@@ -9,7 +10,8 @@ import ua.rd.webbanking.model.services.CheckClientData;
 import javax.servlet.http.HttpServletRequest;
 
 public class BlockAccConfirm extends Command {
-    private BlockAccount blockAccount = new BlockAccount();
+    @Autowired
+    private BlockAccount blockAccount;
 
     public BlockAccConfirm() {
 //        default constructor

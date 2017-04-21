@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.CreditCard;
@@ -17,7 +18,8 @@ import java.util.regex.Pattern;
 public class TransferToAnotherCardConfirm extends Command {
     private static final Logger logger = Logger.getLogger(TransferToAnotherCardConfirm.class);
 
-    private PaymentConfirm paymentConfirm = new PaymentConfirm();
+    @Autowired
+    private PaymentConfirm paymentConfirm;
     private static final String NUM_FIELD = "([1234]?\\d{1,4}(\\u002E\\d{1,2})?)||([5][0]{4}(\\u002E[0]{1,2})?)";
     private static final String CARD_FIELD = "\\d{16}";
 

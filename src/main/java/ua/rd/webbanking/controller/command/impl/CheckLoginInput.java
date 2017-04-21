@@ -1,5 +1,6 @@
 package ua.rd.webbanking.controller.command.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.controller.command.Command;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.entities.Client;
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 public class CheckLoginInput extends Command {
-    private OpenSimplePage openSimplePage = new OpenSimplePage();
-    private CheckLoginAndPass checkLoginAndPass = new CheckLoginAndPass();
+    @Autowired
+    private OpenSimplePage openSimplePage;
+    @Autowired
+    private CheckLoginAndPass checkLoginAndPass;
     private String username;
     private String password;
     private String pathToJSP;
