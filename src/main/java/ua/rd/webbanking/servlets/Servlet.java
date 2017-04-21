@@ -1,10 +1,12 @@
 package ua.rd.webbanking.servlets;
 
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import ua.rd.webbanking.controller.Dispatcher;
 import org.apache.log4j.Logger;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,12 @@ import java.io.IOException;
 public class Servlet extends HttpServlet {
     private Dispatcher dispatcher = Dispatcher.getInstance();
     private static final Logger logger = Logger.getLogger(Servlet.class);
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, config.getServletContext());
+        super.init(config);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

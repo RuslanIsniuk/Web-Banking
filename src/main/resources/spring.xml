@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <!--JDBC beans-->
+    <bean id="JDBCClientDAO" class="ua.rd.webbanking.dao.impl.JDBCClientDAO"/>
+    <bean id="JDBCAccountDAO" class="ua.rd.webbanking.dao.impl.JDBCAccountDAO"/>
+    <bean id="JDBCCrediCardDAO" class="ua.rd.webbanking.dao.impl.JDBCCreditCardDAO"/>
+    <bean id="JDBCPaymentDAO" class="ua.rd.webbanking.dao.impl.JDBCPaymentDAO"/>
+
+    <!--Hibernate beans-->
+    <bean id="HibernateClientDAO" class="ua.rd.webbanking.dao.hibernateImpl.HibernateClientDAO"/>
+    <bean id="HibernateAccountDAO" class="ua.rd.webbanking.dao.hibernateImpl.HibernateAccountDAO"/>
+    <bean id="HibernateCreditCardDAO" class="ua.rd.webbanking.dao.hibernateImpl.HibernateCreditCardDAO"/>
+    <bean id="HibernatePaymentDAO" class="ua.rd.webbanking.dao.hibernateImpl.HibernatePaymentDAO"/>
+
+    <!--Services beans-->
+    <bean id="BlockAccount" class="ua.rd.webbanking.model.services.BlockAccount"/>
+    <bean id="CheckClientData" class="ua.rd.webbanking.model.services.CheckClientData"/>
+    <bean id="CheckLoginAndPass" class="ua.rd.webbanking.model.services.CheckLoginAndPass"/>
+    <bean id="CreateNewClientPerArea" class="ua.rd.webbanking.model.services.CreateNewClientPerArea"/>
+    <bean id="DeleteAccount" class="ua.rd.webbanking.model.services.DeleteAccount"/>
+    <bean id="GetBlockedAccountsData" class="ua.rd.webbanking.model.services.GetBlockedAccountsData"/>
+    <bean id="GetClientsData" class="ua.rd.webbanking.model.services.GetClientsData"/>
+    <bean id="PaymentConfirm" class="ua.rd.webbanking.model.services.PaymentConfirm"/>
+    <bean id="UnblockAccount" class="ua.rd.webbanking.model.services.UnblockAccount"/>
+</beans>
