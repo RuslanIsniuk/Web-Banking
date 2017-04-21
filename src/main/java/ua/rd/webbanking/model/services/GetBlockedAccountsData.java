@@ -1,5 +1,6 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import ua.rd.webbanking.entities.Account;
 import ua.rd.webbanking.entities.Client;
 import ua.rd.webbanking.entities.CreditCard;
@@ -8,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetBlockedAccountsData {
-    private GetClientsData getClientsData = new GetClientsData();
+    @Autowired
+    private GetClientsData getClientsData;
 
     public List<CreditCard> getBlockedCardsList() {
         List<CreditCard> creditCardList = getClientsData.getAllCreditCards();

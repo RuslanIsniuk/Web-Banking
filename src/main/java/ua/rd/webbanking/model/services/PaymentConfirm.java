@@ -1,5 +1,7 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
 import ua.rd.webbanking.dao.PaymentDAO;
@@ -15,9 +17,15 @@ import ua.rd.webbanking.model.exceptions.*;
 import java.math.BigDecimal;
 
 public class PaymentConfirm {
-    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
-    private AccountDAO accountDAO = new JDBCAccountDAO();
-    private PaymentDAO paymentDAO = new JDBCPaymentDAO();
+    @Autowired
+    @Qualifier("HibernateCreditCardDAO")
+    private CreditCardDAO creditCardDAO ;
+    @Autowired
+    @Qualifier("HibernateAccountDAO")
+    private AccountDAO accountDAO;
+    @Autowired
+    @Qualifier("HibernatePaymentDAO")
+    private PaymentDAO paymentDAO;
     private Payment payment;
 
     public Payment makePayment(long cardID, BigDecimal amount, String destination, PaymentType paymentType) throws ServiceException {

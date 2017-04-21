@@ -1,5 +1,7 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
 import ua.rd.webbanking.dao.impl.JDBCAccountDAO;
@@ -8,8 +10,12 @@ import ua.rd.webbanking.entities.Account;
 import ua.rd.webbanking.entities.CreditCard;
 
 public class UnblockAccount {
-    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
-    private AccountDAO accountDAO = new JDBCAccountDAO();
+    @Autowired
+    @Qualifier("HibernateCreditCardDAO")
+    private CreditCardDAO creditCardDAO;
+    @Autowired
+    @Qualifier("HibernateAccountDAO")
+    private AccountDAO accountDAO;
 
     public void unblockConfirm(long cardID) {
         CreditCard creditCard = creditCardDAO.read(cardID);

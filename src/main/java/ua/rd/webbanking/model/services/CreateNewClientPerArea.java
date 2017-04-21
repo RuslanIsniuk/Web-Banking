@@ -1,5 +1,7 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
@@ -17,9 +19,15 @@ import ua.rd.webbanking.model.exceptions.ServiceException;
 import java.util.List;
 
 public class CreateNewClientPerArea {
-    private ClientDAO clientDAO = new JDBCClientDAO();
-    private AccountDAO accountDAO = new JDBCAccountDAO();
-    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
+    @Autowired
+    @Qualifier("HibernateClientDAO")
+    private ClientDAO clientDAO;
+    @Autowired
+    @Qualifier("HibernateAccountDAO")
+    private AccountDAO accountDAO;
+    @Autowired
+    @Qualifier("HibernateCreditCardDAO")
+    private CreditCardDAO creditCardDAO;
 
     public CreateNewClientPerArea() {
 //        default constructor

@@ -1,5 +1,7 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.dao.AccountDAO;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
@@ -14,9 +16,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GetClientsData {
-    private ClientDAO clientDAO = new JDBCClientDAO();
-    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
-    private AccountDAO accountDAO = new JDBCAccountDAO();
+    @Autowired
+    @Qualifier("HibernateClientDAO")
+    private ClientDAO clientDAO;
+    @Autowired
+    @Qualifier("HibernateCreditCardDAO")
+    private CreditCardDAO creditCardDAO;
+    @Autowired
+    @Qualifier("HibernateAccountDAO")
+    private AccountDAO accountDAO;
 
     public Client getClient(int clientID) {
         return clientDAO.read(clientID);

@@ -1,5 +1,7 @@
 package ua.rd.webbanking.model.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import ua.rd.webbanking.controller.exceptions.AuthorizationException;
 import ua.rd.webbanking.dao.ClientDAO;
 import ua.rd.webbanking.dao.CreditCardDAO;
@@ -9,8 +11,12 @@ import ua.rd.webbanking.entities.Account;
 import ua.rd.webbanking.entities.Client;
 
 public class CheckClientData {
-    private CreditCardDAO creditCardDAO = new JDBCCreditCardDAO();
-    private ClientDAO clientDAO = new JDBCClientDAO();
+    @Autowired
+    @Qualifier("HibernateCreditCardDAO")
+    private CreditCardDAO creditCardDAO;
+    @Autowired
+    @Qualifier("HibernateClientDAO")
+    private ClientDAO clientDAO;
 
     public CheckClientData() {
 //        default constructor
