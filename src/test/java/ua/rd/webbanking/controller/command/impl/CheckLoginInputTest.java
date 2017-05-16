@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CheckLoginInputTest {
-    private static final String DEFAULT_OPERATION_FAIL_PATH = "/index.jsp";
+    private static final String DEFAULT_OPERATION_FAIL_PATH = "/index0.jsp";
     private static final String DEFAULT_OPERATION_CONFIRM_PATH = "pageOpened";
     private CheckLoginInput checkLoginInput;
     @Mock(answer = Answers.RETURNS_DEEP_STUBS)

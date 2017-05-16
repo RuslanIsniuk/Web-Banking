@@ -21,7 +21,7 @@ public class CheckLoginInput extends Command {
     private String pathToJSP;
 
     private static final Logger logger = Logger.getLogger(CheckLoginInput.class);
-    private static final String defaultPassStr = "/index.jsp";
+    private static final String defaultPassStr = "/index0.jsp";
     private static final String errorAttributesStr = "errorMessage";
 
     public CheckLoginInput() {

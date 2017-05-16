@@ -121,7 +121,7 @@ public class OpenSimplePage extends Command {
         request.setAttribute("cardList", getClientsData.getCreditCards(client));
         request.setAttribute("accountList", getClientsData.getAccounts(client));
         request.setAttribute("clientName", client.getClientFullName());
-        return "/PersonalClientArea.jsp";
+        return "PersonalClientArea";
     }
 
     private String openPerAdminAreaPage(HttpServletRequest request) throws AuthorizationException {
@@ -132,7 +132,7 @@ public class OpenSimplePage extends Command {
         }
 
         request.setAttribute("clientName", client.getClientFullName());
-        return "/PersonalAdminArea.jsp";
+        return "PersonalAdminArea";
     }
 
     private String openUnblockAccPage(HttpServletRequest request) throws AuthorizationException {
@@ -314,6 +314,6 @@ public class OpenSimplePage extends Command {
             }
         }
 
-        return "/index.jsp";
+        return "/index0.jsp";
     }
 }

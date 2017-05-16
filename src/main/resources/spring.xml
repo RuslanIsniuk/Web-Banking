@@ -44,6 +44,9 @@ http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 
     <bean id="Dispatcher" class="ua.rd.webbanking.controller.Dispatcher"/>
 
+    <!--Command Spring MVC beans-->
+    <bean id="CheckLoginInputSpringMVC" class="ua.rd.webbanking.controllerSpring.command.impl.CheckLoginInput"/>
+
     <!--Servlet-->
     <bean id="Servlet" class="ua.rd.webbanking.servlets.Servlet"/>
 </beans>

@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <!DOCTYPE html>
 <html>
@@ -21,30 +22,34 @@
     <div class="well">
         <h2 class="col-md-offset-1">Login BankDemo Page</h2>
         <br>
-        <form class="form-horizontal" method="post" action="/Servlet">
+        <form:form class="form-horizontal" method="POST" modelAttribute="loginForm" action="/LoginForm">
             <div class="form-group">
-                <label class="control-label col-md-3" for="login">Login:</label>
+                <form:label path="userName" class="control-label col-md-3" for="login">Login:</form:label>
                 <div class="col-md-6">
-                    <input type="text" class="form-control" name="username" id="login" placeholder="Enter login">
+                    <form:input  path="userName" class="form-control"  id="login" placeholder="Enter login"/>
                 </div>
+                <form:errors path="userName" cssClass="error" />
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3" for="pwd">Password:</label>
+                <form:label path="userPassword" class="control-label col-md-3" for="pwd">Password:</form:label>
                 <div class="col-md-6">
-                    <input type="password" class="form-control" name="password" id="pwd" placeholder="Enter password">
+                    <form:input type="password" class="form-control" path="userPassword" id="pwd" placeholder="Enter password"/>
                 </div>
+                <form:errors path="userPassword" cssClass="error" />
             </div>
             <br>
             <div class="form-group">
                 <div class="col-md-offset-5 col-md-2">
-                    <input type="hidden" value="CheckLoginData" name="actionType"/>
+                    <%--<input type="hidden" value="CheckLoginData" name="actionType"/>--%>
                     <input type="submit" value="Submit" class="btn btn-primary"/>
                 </div>
             </div>
-        </form>
+        </form:form>
         <p>
-        <h3><font color="#dc143c"><c:out value="${errorMessage}"></c:out></font></h3></p>
+        <h3><font color="#dc143c"><c:out value="${errorMessage}"></c:out></font></h3>
+        <form:errors path="errorMessage" cssClass="error"/>
+        </p>
     </div>
 </div>
 
